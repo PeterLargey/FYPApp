@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/owner_drawer_nav"
+    app:startDestination="@id/viewSales">
+    <fragment
+        android:id="@+id/viewSales"
+        android:name="com.example.fypapplication.SalesFragment"
+        android:label="Sales"
+        tools:layout="@layout/fragment_sales"/>
+    <fragment
+        android:id="@+id/viewCost"
+        android:name="com.example.fypapplication.CostFragment"
+        android:label="Costs"
+        tools:layout="@layout/fragment_cost"/>
+    <fragment
+        android:id="@+id/viewRatings"
+        android:name="com.example.fypapplication.AverageRatingsFragment"
+        android:label="Average Ratings"
+        tools:layout="@layout/fragment_average_ratings"/>
+    <fragment
+        android:id="@+id/viewPayroll"
+        android:name="com.example.fypapplication.PayrollFragment"
+        android:label="Payroll"
+        tools:layout="@layout/fragment_payroll"/>
+
+
+</navigation>

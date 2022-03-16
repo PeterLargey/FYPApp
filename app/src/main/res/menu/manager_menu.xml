@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Restaurant">
+        <menu>
+            <item
+                android:id="@+id/viewOrders"
+                android:title="Current Orders"
+                android:icon="@drawable/ic_baseline_restaurant_24"/>
+
+            <item
+                android:id="@+id/managerSelectTable"
+                android:title="Create Order"
+                android:icon="@drawable/ic_baseline_table_restaurant_24"/>
+
+            <item
+                android:id="@+id/viewCurrentReservations"
+                android:title="Current Reservations"
+                android:icon="@drawable/ic_baseline_calendar_today_24"/>
+
+            <item android:id="@+id/managerCreateRez"
+                android:title="Create Reservation"
+                android:icon="@drawable/ic_baseline_add_circle_24"/>
+
+            <item
+                android:id="@+id/viewReservations"
+                android:title="All Reservations"
+                android:icon="@drawable/ic_baseline_calendar_month_24"/>
+
+        </menu>
+    </item>
+
+
+
+
+    <item android:title="Admin">
+        <menu>
+
+            <item
+                android:id="@+id/viewStaff"
+                android:title="Display Staff"
+                android:icon="@drawable/ic_baseline_person_24"/>
+
+            <item android:id="@+id/addStaff"
+                android:title="Create Staff"
+                android:icon="@drawable/ic_baseline_person_add_24"/>
+
+            <item android:id="@+id/deleteStaff"
+                android:title="Delete Staff"
+                android:icon="@drawable/ic_baseline_person_remove_24"/>
+
+            <item android:id="@+id/createMenu"
+                android:title="Create Menu Item"
+                android:icon="@drawable/ic_baseline_menu_book_24"/>
+
+            <item android:id="@+id/editMenu"
+                android:title="Edit Menu"
+                android:icon="@drawable/ic_baseline_edit_24"/>
+
+        </menu>
+    </item>
+
+
+
+</menu>

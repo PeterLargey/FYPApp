@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/myOrders"
+        android:title="My Orders"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"/>
+
+    <item android:id="@+id/tables"
+        android:title="Tables"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_table_restaurant_24"/>
+
+    <item android:id="@+id/takePayment"
+        android:title="Payment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_restaurant_24"/>
+
+</menu>

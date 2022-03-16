@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_nav"
+    app:startDestination="@id/viewOrders">
+    <fragment
+        android:id="@+id/viewOrders"
+        android:name="com.example.fypapplication.AllOrdersFragment"
+        android:label="Current Orders"
+        tools:layout="@layout/fragment_all_orders" >
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="manager" />
+    </fragment>
+    <fragment
+        android:id="@+id/createMenu"
+        android:name="com.example.fypapplication.CreateMenuFragment"
+        android:label="Create Menu Item"
+        tools:layout="@layout/fragment_create_menu" />
+    <fragment
+        android:id="@+id/addStaff"
+        android:name="com.example.fypapplication.CreateStaffFragment"
+        android:label="Create Staff"
+        tools:layout="@layout/fragment_create_user" />
+    <fragment
+        android:id="@+id/deleteStaff"
+        android:name="com.example.fypapplication.DeleteStaffFragment"
+        android:label="Delete Staff"
+        tools:layout="@layout/fragment_delete_user" />
+    <fragment
+        android:id="@+id/viewStaff"
+        android:name="com.example.fypapplication.DisplayStaffFragment"
+        android:label="Display Staff"
+        tools:layout="@layout/fragment_display_users" />
+    <fragment
+        android:id="@+id/editMenu"
+        android:name="com.example.fypapplication.EditMenuFragment"
+        android:label="Edit Menu"
+        tools:layout="@layout/fragment_edit_menu" />
+    <fragment
+        android:id="@+id/viewReservations"
+        android:name="com.example.fypapplication.AllReservationsFragment"
+        android:label="Reservations"
+        tools:layout="@layout/fragment_all_reservations" />
+    <fragment
+        android:id="@+id/managerSelectTable"
+        android:name="com.example.fypapplication.ServerTablesFragment"
+        android:label="Create Order"
+        tools:layout="@layout/fragment_server_tables"
+        />
+    <fragment
+        android:id="@+id/managerCreateRez"
+        android:name="com.example.fypapplication.AddReservationFragment"
+        android:label="Create Reservation"
+        tools:layout="@layout/fragment_add_reservation"
+        />
+    <fragment
+        android:id="@+id/viewCurrentReservations"
+        android:name="com.example.fypapplication.CurrentReservationsFragment"
+        android:label="Today's Reservations"
+        tools:layout="@layout/fragment_current_reservations"/>
+</navigation>

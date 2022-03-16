@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".StaffLogin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/staffLoginCenterLine"
+        android:layout_centerInParent="true">
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_above="@+id/staffLoginCenterLine"
+        android:layout_marginBottom="200dp"
+        android:orientation="vertical"
+        android:id="@+id/staffLoginLayout">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MenuNow Staff Login"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            android:textColor="@color/black">
+
+        </TextView>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="144dp"
+        android:layout_height="119dp"
+        app:tint="@color/black"
+        app:srcCompat="@drawable/ic_baseline_menu_book_24"
+        android:layout_above="@id/staffLoginCenterLine"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="130dp">
+
+    </ImageView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_above="@id/staffLoginCenterLine"
+        android:layout_marginBottom="0dp"
+        app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
+        app:startIconTint="@color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernameLogin"
+            android:textColorHint="@color/black"
+            android:hint="Enter Username"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@id/staffLoginCenterLine"
+        android:layout_marginTop="10dp"
+        app:startIconDrawable="@drawable/ic_baseline_security_24"
+        app:startIconTint="@color/black"
+        app:passwordToggleEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/passwordStaffLogin"
+            android:textColorHint="@color/black"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/staffLoginCenterLine"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="30dp"
+        android:text="Login"
+        android:textSize="16dp"
+        android:id="@+id/staffLogin"/>
+
+
+
+</RelativeLayout>

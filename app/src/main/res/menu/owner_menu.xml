@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Statistics">
+        <menu>
+            <item android:id="@+id/viewSales"
+                android:title="Sales"
+                android:icon="@drawable/ic_baseline_payment_24"/>
+
+            <item android:id="@+id/viewCost"
+                android:title="Costs"
+                android:icon="@drawable/ic_baseline_euro_24"/>
+
+            <item android:id="@+id/viewRatings"
+                android:title="Average Rating"
+                android:icon="@drawable/ic_baseline_star_24"/>
+
+        </menu>
+    </item>
+
+    <item android:title="Admin">
+        <menu>
+            <item android:id="@+id/viewPayroll"
+                android:title="Payroll"
+                android:icon="@drawable/ic_baseline_people_24"/>
+        </menu>
+    </item>
+
+</menu>
