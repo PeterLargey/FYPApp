@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -16,6 +17,7 @@ public class CreateOrder extends AppCompatActivity {
 
     private Intent data;
     private TabLayout tabLayout;
+    private final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class CreateOrder extends AppCompatActivity {
 
         String tableNumber = data.getStringExtra("tableNo");
         String role = data.getStringExtra("role");
+        Log.d(TAG, role);
         Bundle bundle = new Bundle();
         bundle.putString("tableNo", tableNumber);
         bundle.putString("role", role);

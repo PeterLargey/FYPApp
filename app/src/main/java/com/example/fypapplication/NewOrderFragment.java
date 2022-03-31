@@ -73,6 +73,7 @@ public class NewOrderFragment extends Fragment {
         if(getArguments() != null){
             tableNumber = getArguments().getString("tableNo");
             role = getArguments().getString("role");
+            staffUserName = getArguments().getString("staffMember");
         }
 
         TextView tableNo = newOrderView.findViewById(R.id.newOrderTableNo);
