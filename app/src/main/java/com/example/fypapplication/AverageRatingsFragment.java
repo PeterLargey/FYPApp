@@ -72,6 +72,7 @@ public class AverageRatingsFragment extends Fragment {
             }
         });
         return averageRatingsView;
+
     }
 
     private void setUpPieChart(){
