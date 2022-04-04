@@ -15,10 +15,12 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 public class tableAdapter extends FirestoreRecyclerAdapter<Table, tableAdapter.TableViewHolder> {
 
     private String role;
+    private String staffMember;
 
-    public tableAdapter(@NonNull FirestoreRecyclerOptions<Table> options, String role){
+    public tableAdapter(@NonNull FirestoreRecyclerOptions<Table> options, String role, String staffMember){
         super(options);
         this.role = role;
+        this.staffMember = staffMember;
     }
 
     @Override
@@ -36,6 +38,7 @@ public class tableAdapter extends FirestoreRecyclerAdapter<Table, tableAdapter.T
                 i.putExtra("tableNo", tableNoHolder);
                 i.putExtra("docId", docId);
                 i.putExtra("role", role);
+                i.putExtra("staffMember", staffMember);
 
                 view.getContext().startActivity(i);
             }

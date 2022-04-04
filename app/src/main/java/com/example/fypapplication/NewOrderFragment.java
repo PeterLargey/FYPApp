@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -75,6 +76,8 @@ public class NewOrderFragment extends Fragment {
             role = getArguments().getString("role");
             staffUserName = getArguments().getString("staffMember");
         }
+
+
 
         TextView tableNo = newOrderView.findViewById(R.id.newOrderTableNo);
         tableNo.setText(tableNumber);

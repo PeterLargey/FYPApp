@@ -26,7 +26,7 @@ public class ServerTablesFragment extends Fragment {
     private tableAdapter adapter;
     private final String TAG = "TAG";
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
-    private String role;
+    private String role, staffMember;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,16 +35,17 @@ public class ServerTablesFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         if(getArguments() != null){
             role = getArguments().getString("role");
+            staffMember = getArguments().getString("staffMember");
         }
         mRecyclerView = tablesView.findViewById(R.id.tablesRecycler);
-        setUpRecycler(role);
+        setUpRecycler(role, staffMember);
         return tablesView;
     }
 
-    private void setUpRecycler(String role){
+    private void setUpRecycler(String role, String staffMember){
         Query query = db.collection("Tables").orderBy("tableNo", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Table> options = new FirestoreRecyclerOptions.Builder<Table>().setQuery(query, Table.class).build();
-        adapter = new tableAdapter(options, role);
+        adapter = new tableAdapter(options, role, staffMember);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(adapter);

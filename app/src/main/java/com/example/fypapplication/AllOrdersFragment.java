@@ -32,7 +32,7 @@ public class AllOrdersFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private String userId;
-    private String role;
+    private String role, staffMember;
     private RecyclerView mRecyclerView;
     private allOrdersAdapter adapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -46,19 +46,20 @@ public class AllOrdersFragment extends Fragment {
         userId = mAuth.getUid();
         if(getArguments() != null){
             role = getArguments().getString("role");
+            staffMember = getArguments().getString("staffMember");
         }
         mRecyclerView = allOrdersView.findViewById(R.id.allOrdersRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(allOrdersView.getContext(), DividerItemDecoration.VERTICAL));
-        setUpRecycler(role);
+        setUpRecycler(role, staffMember);
 
 
         return allOrdersView;
     }
 
-    private void setUpRecycler(String role){
+    private void setUpRecycler(String role, String staffMember){
         Query query = db.collection("Orders").orderBy("tableNo", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>().setQuery(query, Order.class).build();
-        adapter = new allOrdersAdapter(options, role);
+        adapter = new allOrdersAdapter(options, role, staffMember);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(adapter);

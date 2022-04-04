@@ -19,10 +19,12 @@ import java.util.List;
 public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersAdapter.AllOrdersViewHolder> {
 
     private String role;
+    private String staffMember;
 
-    public allOrdersAdapter(@NonNull FirestoreRecyclerOptions<Order> options, String role){
+    public allOrdersAdapter(@NonNull FirestoreRecyclerOptions<Order> options, String role, String staffMember){
         super(options);
         this.role = role;
+        this.staffMember = staffMember;
     }
 
     @Override
@@ -44,6 +46,8 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putExtra("docId", docId);
                     i.putExtra("tableNo", model.getTableNo());
                     i.putExtra("total", model.getTotal());
+                    i.putExtra("role", role);
+                    i.putExtra("staffMember", staffMember);
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
                     //i.putExtra("items", (Parcelable) model.getItems());
                     i.putExtra("staffMember", model.getStaffMember());
@@ -61,6 +65,7 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
                     //i.putExtra("items", (Parcelable) model.getItems());
                     i.putExtra("staffMember", model.getStaffMember());
+                    i.putExtra("role", role);
                     i.putExtra("note", model.getNote());
 
                     view.getContext().startActivity(i);

@@ -48,8 +48,16 @@
         android:id="@+id/managerSelectTable"
         android:name="com.example.fypapplication.ServerTablesFragment"
         android:label="Create Order"
-        tools:layout="@layout/fragment_server_tables"
-        />
+        tools:layout="@layout/fragment_server_tables" >
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="manager" />
+        <argument
+            android:name="staffMember"
+            app:argType="string"
+            android:defaultValue="manager@menunow.ie" />
+    </fragment>
     <fragment
         android:id="@+id/managerCreateRez"
         android:name="com.example.fypapplication.AddReservationFragment"

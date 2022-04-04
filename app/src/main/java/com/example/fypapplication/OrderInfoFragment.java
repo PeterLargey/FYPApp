@@ -160,11 +160,28 @@ public class OrderInfoFragment extends Fragment {
         proceedToPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                db.collection("Cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                           for(QueryDocumentSnapshot doc: task.getResult()){
+                                doc.getReference().delete();
+                            }
+                            Log.d(TAG, "Cart cleared");
+                        }else {
+                            Log.d(TAG, "Cart failed to clear");
+                        }
+                    }
+                });
+
+
                 Intent i = new Intent(orderInfoView.getContext(), ProcessPayment.class);
+                i.putExtra("tableNo", tableNumber);
                 i.putExtra("total", updateOrderTotal.getText().toString());
                 i.putExtra("staffMember", staffMember);
                 i.putParcelableArrayListExtra("items", (ArrayList) mergedItems);
                 i.putExtra("docId", docId);
+                i.putExtra("role", role);
 
                 startActivity(i);
             }

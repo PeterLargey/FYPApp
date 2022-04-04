@@ -57,14 +57,14 @@ public class ServerOrderFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(serverOrderView.getContext(), DividerItemDecoration.VERTICAL));
 
         Log.d(TAG, "Server Order Fragment name: " + staffMember);
-        setUpRecycler(role);
+        setUpRecycler(role, staffMember);
         return serverOrderView;
     }
 
-    private void setUpRecycler(String role){
+    private void setUpRecycler(String role, String staffMember){
         Query query = db.collection("Orders").whereEqualTo("staffMember", staffMember).orderBy("tableNo", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>().setQuery(query, Order.class).build();
-        adapter = new orderAdapter(options, role);
+        adapter = new orderAdapter(options, role, staffMember);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(adapter);

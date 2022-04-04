@@ -18,6 +18,7 @@ public class CreateOrder extends AppCompatActivity {
     private Intent data;
     private TabLayout tabLayout;
     private final String TAG = "TAG";
+    private String role, staffMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +28,13 @@ public class CreateOrder extends AppCompatActivity {
         data = getIntent();
 
         String tableNumber = data.getStringExtra("tableNo");
-        String role = data.getStringExtra("role");
-        Log.d(TAG, role);
+        role = data.getStringExtra("role");
+        staffMember = data.getStringExtra("staffMember");
+        Log.d(TAG, "Role: "+ role);
         Bundle bundle = new Bundle();
         bundle.putString("tableNo", tableNumber);
         bundle.putString("role", role);
+        bundle.putString("staffMember", staffMember);
 
         tabLayout = findViewById(R.id.tabLayout);
         Fragment startingFragment = new NewOrderFragment();
@@ -92,7 +95,14 @@ public class CreateOrder extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.backToStaffMain){
-            Intent i = new Intent(CreateOrder.this, ServerMain.class);
+            Intent i;
+            if(role.equalsIgnoreCase("server")){
+                i = new Intent(CreateOrder.this, ServerMain.class);
+            } else {
+                i = new Intent(CreateOrder.this, ManagerMain.class);
+            }
+            i.putExtra("role", role);
+            i.putExtra("staffMember", staffMember);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
