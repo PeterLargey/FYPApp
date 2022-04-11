@@ -18,24 +18,25 @@
     <TextView
         android:text="Edit Staff Info"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_above="@id/editStaffCenterLine"
-        android:layout_marginBottom="220dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="250dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:textAlignment="center"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_above="@id/editStaffCenterLine"
-        android:layout_marginBottom="105dp"
+        android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginBottom="130dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -43,53 +44,35 @@
             android:text="Current Username: "
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="1"/>
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/staffCurrentUsername"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is the value"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="0.75"/>
+            app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
+            app:startIconTint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:id="@+id/editStaffName">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/editStaffCenterLine"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginBottom="30dp"
-        app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
-        app:startIconTint="@color/black"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/editStaffName"
-            android:hint="Enter Username"
-            android:textColorHint="@color/black">
-
-        </EditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/editStaffCenterLine"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -97,51 +80,36 @@
             android:text="Current Role: "
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="1"/>
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/staffCurrentRole"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is the value"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="0.75"/>
+            app:startIconDrawable="@drawable/ic_baseline_flag_circle_24"
+            app:startIconTint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:id="@+id/editStaffRole">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/editStaffCenterLine"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="35dp"
-        app:startIconDrawable="@drawable/ic_baseline_flag_circle_24"
-        app:startIconTint="@color/black"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/editStaffRole"
-            android:hint="Enter Role"
-            android:textColorHint="@color/black">
-
-        </EditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/editStaffCenterLine"
-        android:layout_marginTop="110dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -149,42 +117,28 @@
             android:text="Current Password: "
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="1"/>
+            android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/staffCurrentPassword"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is the value"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="0.75"/>
+            app:startIconDrawable="@drawable/ic_baseline_security_24"
+            app:startIconTint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:id="@+id/editStaffPassword">
+
+            </EditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editStaffCenterLine"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="135dp"
-        app:startIconDrawable="@drawable/ic_baseline_security_24"
-        app:startIconTint="@color/black"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:id="@+id/editStaffPassword"
-            android:hint="Enter Password"
-            android:textColorHint="@color/black">
-
-        </EditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"
@@ -194,7 +148,7 @@
         android:layout_below="@id/editStaffCenterLine"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="220dp"/>
+        android:layout_marginTop="180dp"/>
 
 
 

@@ -49,7 +49,7 @@ public class DeleteStaffFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        Query query = db.collection("Staff").orderBy("role", Query.Direction.ASCENDING);
+        Query query = db.collection("Staff").whereNotEqualTo("role", "owner").orderBy("role", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Staff> options = new FirestoreRecyclerOptions.Builder<Staff>().setQuery(query, Staff.class).build();
         adapter = new staffDeleteAdapter(options);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

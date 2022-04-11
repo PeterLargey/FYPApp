@@ -55,7 +55,7 @@ public class CardPayment extends AppCompatActivity {
     private Intent data;
     private Button pay;
     private List<MenuItem> items;
-    private String total, staffMember, role, docId;
+    private String total, staffMember, role, docId, timestamp;
     private static final String BACKEND_URL = "http://10.0.2.2:3000/";
     private OkHttpClient httpClient = new OkHttpClient();
     private String paymentIntentClientSecret;
@@ -75,6 +75,7 @@ public class CardPayment extends AppCompatActivity {
         staffMember = data.getStringExtra("staffMember");
         role = data.getStringExtra("role");
         docId = data.getStringExtra("docId");
+        timestamp = data.getStringExtra("timestamp");
 
         stripe = new Stripe(
                 getApplicationContext(),
@@ -248,16 +249,16 @@ public class CardPayment extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String paymentMethod = "Card";
-                inputIntoSales(items, total, staffMember, paymentMethod);
+                inputIntoSales(items, total, staffMember, paymentMethod, timestamp);
                 removeOrder(docId);
                 Intent intent;
                 if(role.equalsIgnoreCase("server")){
                     intent = new Intent(CardPayment.this, ServerMain.class);
-                    intent.putExtra("staffMember", staffMember);
-                    intent.putExtra("role", role);
                 } else {
                     intent = new Intent(CardPayment.this, ManagerMain.class);
                 }
+                intent.putExtra("staffMember", staffMember);
+                intent.putExtra("role", role);
                 startActivity(intent);
 
             }
@@ -280,13 +281,14 @@ public class CardPayment extends AppCompatActivity {
         });
     }
 
-    private void inputIntoSales(List<MenuItem> items, String total, String staffMember, String paymentMethod) {
+    private void inputIntoSales(List<MenuItem> items, String total, String staffMember, String paymentMethod, String timestamp) {
         DocumentReference docRef = db.collection("Sales").document();
         Map<String, Object> sale = new HashMap<>();
         sale.put("items", items);
         sale.put("total", total);
         sale.put("staffMember", staffMember);
         sale.put("paymentMethod", paymentMethod);
+        sale.put("timestamp", timestamp);
         docRef.set(sale).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

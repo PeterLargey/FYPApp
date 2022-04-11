@@ -5,13 +5,17 @@
       <map>
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/drawable/gradient_backgroud.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/drawable/gradient_background.xml" value="0.3494791666666667" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_add_to_roster.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_add_to_waiting_list.xml" value="0.25" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_admin_main.xml" value="0.3375" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_calorie_breakdown.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_card_payment.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_chef_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_create_order.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_current_roster.xml" value="0.31927083333333334" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_edit_menu_item.xml" value="0.25" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_edit_reservation.xml" value="0.33" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_edit_roster_item.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_edit_staff.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_forgot_password.xml" value="0.3375" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_host_main.xml" value="0.3375" />
@@ -20,6 +24,7 @@
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_manager_order_details.xml" value="0.18333333333333332" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_menu.xml" value="0.3375" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_order_details.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_owner_edit_staff.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_owner_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_process_payment.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_register.xml" value="0.3375" />
@@ -27,15 +32,18 @@
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_server_main.xml" value="0.3375" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_staff_login.xml" value="0.3375" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_staff_main.xml" value="0.3375" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_update_menu_item_ingredients.xml" value="0.31927083333333334" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/activity_user_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/content_manager_home.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_add_reservation.xml" value="0.31927083333333334" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_all_orders.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_all_reservations.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_average_ratings.xml" value="0.25" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_chef_menu.xml" value="0.31927083333333334" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_cost.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_create_menu.xml" value="0.33" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_create_user.xml" value="0.33" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_current_inventory.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_current_orders.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_current_reservations.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_date_picker.xml" value="0.3333333333333333" />
@@ -50,9 +58,12 @@
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_manager_info_details.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_new_order.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_order_info.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_owner_create_staff.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_owner_display_staff.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_payment_gateway.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_payroll.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_reservations.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_roster.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_sales.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_server_order.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/fragment_server_tables.xml" value="0.31927083333333334" />
@@ -72,21 +83,26 @@
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_section_header.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_add_item_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_all_reservations_layout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_calendar_cell.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_current_order_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_delete_staff_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_manager_menu_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_manager_order_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_new_order_layout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_payroll_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_reservation_layout.xml" value="0.33" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_reviews_layout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_roster_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_server_order_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_table_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_user_menu_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recycler_view_waitinglist_layout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recyler_view_chef_menu_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/recyler_view_staff_layout.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/layout/section_row.xml" value="0.33" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/menu/admin_bottom_nav.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/menu/admin_menu.xml" value="0.3375" />
+        <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/menu/chef_bottom_nav.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/menu/create_order_bottom_nav.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/menu/edit_staff_menu.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/peter/AndroidStudioProjects/FYPApplication/app/src/main/res/menu/host_bottom_nav.xml" value="0.3333333333333333" />

@@ -158,6 +158,7 @@ public class OrderInfoFragment extends Fragment {
         });
 
         proceedToPayment.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 db.collection("Cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -173,7 +174,7 @@ public class OrderInfoFragment extends Fragment {
                         }
                     }
                 });
-
+                String timestamp = getCurrentDateAndTime();
 
                 Intent i = new Intent(orderInfoView.getContext(), ProcessPayment.class);
                 i.putExtra("tableNo", tableNumber);
@@ -182,6 +183,7 @@ public class OrderInfoFragment extends Fragment {
                 i.putParcelableArrayListExtra("items", (ArrayList) mergedItems);
                 i.putExtra("docId", docId);
                 i.putExtra("role", role);
+                i.putExtra("timestamp", timestamp);
 
                 startActivity(i);
             }

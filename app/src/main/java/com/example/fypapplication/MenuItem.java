@@ -3,20 +3,26 @@ package com.example.fypapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 public class MenuItem implements Parcelable {
 
     private String name;
     private String type;
     private String desc;
     private String price;
+    private List<Ingredients> ingredients;
+    private String costPerUnit;
 
     public MenuItem(){}
 
-    public MenuItem(String type, String name, String desc, String price){
+    public MenuItem(String type, String name, String desc, String price, List<Ingredients> ingredients, String costPerUnit){
         this.type = type;
         this.name = name;
         this.desc = desc;
         this.price = price;
+        this.ingredients = ingredients;
+        this.costPerUnit = costPerUnit;
     }
 
     protected MenuItem(Parcel in) {
@@ -70,6 +76,14 @@ public class MenuItem implements Parcelable {
         this.price = price;
     }
 
+    public String getCostPerUnit() {
+        return costPerUnit;
+    }
+
+    public void setCostPerUnit(String costPerUnit) {
+        this.costPerUnit = costPerUnit;
+    }
+
     @Override
     public String toString() {
         return "MenuItem{" +
@@ -91,5 +105,13 @@ public class MenuItem implements Parcelable {
         parcel.writeString(type);
         parcel.writeString(desc);
         parcel.writeString(price);
+    }
+
+    public List<Ingredients> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredients> ingredients) {
+        this.ingredients = ingredients;
     }
 }

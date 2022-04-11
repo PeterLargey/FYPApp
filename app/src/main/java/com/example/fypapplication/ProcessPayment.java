@@ -31,7 +31,7 @@ public class ProcessPayment extends AppCompatActivity {
     private RecyclerView orderItems;
     private Button payByCash, payByCard;
     private FirebaseFirestore db;
-    private String docId, tableNumber, orderTotal, staffMember, role;
+    private String docId, tableNumber, orderTotal, staffMember, role, timestamp;
     private Intent data;
     private List<MenuItem> items;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -52,6 +52,7 @@ public class ProcessPayment extends AppCompatActivity {
         orderTotal = data.getStringExtra("total");
         staffMember = data.getStringExtra("staffMember");
         role = data.getStringExtra("role");
+        timestamp = data.getStringExtra("timestamp");
         items = (ArrayList) data.getParcelableArrayListExtra("items");
         for(MenuItem i : items){
             Log.d(TAG, i.getName());
@@ -78,7 +79,7 @@ public class ProcessPayment extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String paymentMethod = "Cash";
-                inputDataIntoSales(items, orderTotal, staffMember, paymentMethod);
+                inputDataIntoSales(items, orderTotal, staffMember, paymentMethod, timestamp);
                 removeOrder(docId);
                 Intent i;
                 if(role.equalsIgnoreCase("server")){
@@ -87,6 +88,7 @@ public class ProcessPayment extends AppCompatActivity {
                     i = new Intent(ProcessPayment.this, ManagerMain.class);
                 }
                 i.putExtra("staffMember", staffMember);
+                i.putExtra("role", role);
                 startActivity(i);
             }
         });
@@ -101,6 +103,7 @@ public class ProcessPayment extends AppCompatActivity {
                 i.putParcelableArrayListExtra("items", (ArrayList) items);
                 i.putExtra("role", role);
                 i.putExtra("docId", docId);
+                i.putExtra("timestamp", timestamp);
                 startActivity(i);
             }
         });
@@ -124,13 +127,14 @@ public class ProcessPayment extends AppCompatActivity {
         });
     }
 
-    private void inputDataIntoSales(List<MenuItem> items, String total, String staffMember, String paymentMethod) {
+    private void inputDataIntoSales(List<MenuItem> items, String total, String staffMember, String paymentMethod, String timestamp) {
         DocumentReference docRef = db.collection("Sales").document();
         Map<String, Object> sale = new HashMap<>();
         sale.put("items", items);
         sale.put("total", total);
         sale.put("staffMember", staffMember);
         sale.put("paymentMethod", paymentMethod);
+        sale.put("timestamp", timestamp);
         docRef.set(sale).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -161,6 +165,7 @@ public class ProcessPayment extends AppCompatActivity {
                 i = new Intent(ProcessPayment.this, ManagerMain.class);
             }
             i.putExtra("staffMember", staffMember);
+            i.putExtra("role", role);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);

@@ -6,13 +6,31 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
-        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FYPApplication">
+        <activity
+            android:name=".AddToRoster"
+            android:exported="true" />
+        <activity
+            android:name=".EditRosterItem"
+            android:exported="true" />
+        <activity
+            android:name=".CurrentRoster"
+            android:exported="true" />
+        <activity
+            android:name=".UpdateMenuItemIngredients"
+            android:exported="true" />
+        <activity
+            android:name=".ChefMain"
+            android:exported="true" />
+        <activity
+            android:name=".OwnerEditStaff"
+            android:exported="true" />
         <activity
             android:name=".CardPayment"
             android:exported="true" />

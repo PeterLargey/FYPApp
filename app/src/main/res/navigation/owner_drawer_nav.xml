@@ -24,6 +24,26 @@
         android:name="com.example.fypapplication.PayrollFragment"
         android:label="Payroll"
         tools:layout="@layout/fragment_payroll"/>
+    <fragment
+        android:id="@+id/viewRoster"
+        android:name="com.example.fypapplication.RosterFragment"
+        android:label="Staff Roster"
+        tools:layout="@layout/fragment_roster"/>
+    <fragment
+        android:id="@+id/ownerCreateStaff"
+        android:name="com.example.fypapplication.OwnerCreateStaffFragment"
+        android:label="Create Staff"
+        tools:layout="@layout/fragment_owner_create_staff"/>
+    <fragment
+        android:id="@+id/viewInventory"
+        android:name="com.example.fypapplication.CurrentInventoryFragment"
+        android:label="Current Inventory"
+        tools:layout="@layout/fragment_current_inventory"/>
+    <fragment
+        android:id="@+id/viewDifference"
+        android:name="com.example.fypapplication.ProfitAndLossFragment"
+        android:label="Profit and Loss"
+        tools:layout="@layout/fragment_profit_and_loss"/>
 
 
 </navigation>

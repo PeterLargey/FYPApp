@@ -15,6 +15,11 @@
                 android:title="Average Rating"
                 android:icon="@drawable/ic_baseline_star_24"/>
 
+            <item android:id="@+id/viewDifference"
+                android:title="Profit and Loss"
+                android:icon="@drawable/ic_baseline_difference_24"/>
+
+
         </menu>
     </item>
 
@@ -23,6 +28,18 @@
             <item android:id="@+id/viewPayroll"
                 android:title="Payroll"
                 android:icon="@drawable/ic_baseline_people_24"/>
+
+            <item android:id="@+id/viewRoster"
+                android:title="Staff Roster"
+                android:icon="@drawable/ic_baseline_calendar_today_24"/>
+
+            <item android:id="@+id/ownerCreateStaff"
+                android:title="Create Staff"
+                android:icon="@drawable/ic_baseline_account_circle_24"/>
+
+            <item android:id="@+id/viewInventory"
+                android:title="Current Inventory"
+                android:icon="@drawable/ic_baseline_list_alt_24"/>
         </menu>
     </item>
 

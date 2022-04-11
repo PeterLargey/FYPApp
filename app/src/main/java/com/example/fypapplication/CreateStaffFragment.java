@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,10 +38,29 @@ public class CreateStaffFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View createView = inflater.inflate(R.layout.fragment_create_user, container, false);
         mAuth = FirebaseAuth.getInstance();
-        Button button = createView.findViewById(R.id.createStaffAccount);
-        EditText roleInput = createView.findViewById(R.id.regStaffRole);
+        String[] types = new String[2];
+        types[0] = "server";
+        types[1] = "host";
+
+        ArrayAdapter<String> adapter;
+
+
+        AutoCompleteTextView roleInput = createView.findViewById(R.id.newStaffType);
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.itemtype_dropdown_item, types);
+        roleInput.setAdapter(adapter);
+
+        roleInput.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String item = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(view.getContext(), "Type Selected " + item, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         EditText usernameInput = createView.findViewById(R.id.regStaffUsername);
         EditText passwordInput = createView.findViewById(R.id.regStaffPassword);
+        Button button = createView.findViewById(R.id.createStaffAccount);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +78,14 @@ public class CreateStaffFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                inputDataIntoStaff(usernameString, roleString, passwordString);
+                                double wage = 0.00;
+                                if(roleString.equalsIgnoreCase("server")){
+                                    wage = 14.50;
+                                }
+                                if(roleString.equalsIgnoreCase("host")){
+                                    wage = 11.00;
+                                }
+                                inputDataIntoStaff(usernameString, roleString, passwordString, wage);
                                 Toast.makeText(view.getContext(), "New staff member created", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(view.getContext(), "An error occurred, New staff member was not created", Toast.LENGTH_LONG).show();
@@ -72,7 +101,7 @@ public class CreateStaffFragment extends Fragment {
         return createView;
     }
 
-    public void inputDataIntoStaff(String username, String role, String password){
+    public void inputDataIntoStaff(String username, String role, String password, double wage){
         String TAG = "TAG";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Staff").document();
@@ -80,6 +109,7 @@ public class CreateStaffFragment extends Fragment {
         newStaff.put("role", role);
         newStaff.put("username", username);
         newStaff.put("password", password);
+        newStaff.put("wage", wage);
 
         docRef.set(newStaff).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

@@ -26,8 +26,7 @@ public class EditStaff extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     private FirebaseFirestore db;
-    private TextView username, role, password;
-    private EditText eUsername, eRole, ePassword;
+    private EditText username, role, password;
     private Button button;
     private Intent data;
     @Override
@@ -39,43 +38,42 @@ public class EditStaff extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 
-        eUsername = findViewById(R.id.editStaffName);
-        eRole = findViewById(R.id.editStaffRole);
-        ePassword = findViewById(R.id.editStaffPassword);
+        username = findViewById(R.id.editStaffName);
+        role = findViewById(R.id.editStaffRole);
+        password = findViewById(R.id.editStaffPassword);
 
-        username = findViewById(R.id.staffCurrentUsername);
-        role = findViewById(R.id.staffCurrentRole);
-        password = findViewById(R.id.staffCurrentPassword);
-
-        String cUsername = data.getStringExtra("username");
-        String cRole = data.getStringExtra("role");
-        String cPassword = data.getStringExtra("password");
+        String usernameString = data.getStringExtra("username");
+        String roleString = data.getStringExtra("role");
+        String passwordString = data.getStringExtra("password");
+        double wage = data.getDoubleExtra("wage", 0);
+        Log.d(TAG, "Wage: " + wage);
 
         String docId = data.getStringExtra("docId");
 
-        username.setText(cUsername);
-        role.setText(cRole);
-        password.setText(cPassword);
+        username.setText(usernameString);
+        role.setText(roleString);
+        password.setText(passwordString);
 
         button = findViewById(R.id.updateStaff);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uUsername = eUsername.getText().toString();
-                String uRole = eRole.getText().toString();
-                String uPassword = ePassword.getText().toString();
+                String updatedUsername = username.getText().toString();
+                String updatedRole = role.getText().toString();
+                String updatedPassword = password.getText().toString();
 
-                if(uUsername.isEmpty() || uRole.isEmpty() || uPassword.isEmpty()){
+                if(updatedUsername.isEmpty() || updatedRole.isEmpty() || updatedPassword.isEmpty()){
                     Toast.makeText(getApplicationContext(), "All Fields are required", Toast.LENGTH_LONG).show();
-                } else if(uPassword.length() < 6){
-                    ePassword.setError("Please enter at least 6 characters");
+                } else if(updatedPassword.length() < 6){
+                    password.setError("Please enter at least 6 characters");
                 } else {
                     DocumentReference docRef = db.collection("Staff").document(docId);
                     Map<String, Object> edit = new HashMap<>();
-                    edit.put("username", uUsername);
-                    edit.put("role", uRole);
-                    edit.put("password", uPassword);
+                    edit.put("username", updatedUsername);
+                    edit.put("role", updatedRole);
+                    edit.put("password", updatedPassword);
+                    edit.put("wage", wage);
                     docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

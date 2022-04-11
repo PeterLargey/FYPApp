@@ -7,16 +7,6 @@
     tools:context=".CreateStaffFragment">
 
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Create New Staff Account"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="32sp"/>-->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/newRoleInput"
         android:layout_width="match_parent"
@@ -24,19 +14,18 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="60dp"
+        android:hint="Select Role"
         app:startIconDrawable="@drawable/ic_baseline_flag_circle_24"
         app:startIconTint="@color/black"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-        <EditText
+
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:id="@+id/regStaffRole"
-            android:hint="Enter Role"
-            android:textColorHint="@color/black">
+            android:id="@+id/newStaffType"
+            android:inputType="none"/>
 
-        </EditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

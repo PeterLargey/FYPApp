@@ -18,7 +18,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EditMenuItem extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class EditMenuItem extends AppCompatActivity {
     private FirebaseFirestore db;
     private EditText name, desc, price;
     private Button button;
+    private List<Ingredients> ingredients = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class EditMenuItem extends AppCompatActivity {
         String itemDesc = data.getStringExtra("desc");
         String itemPrice = data.getStringExtra("price");
         String itemType = data.getStringExtra("type");
+        String itemCost = data.getStringExtra("cost");
+        ingredients = data.getParcelableArrayListExtra("ingredients");
 
         String docId = data.getStringExtra("docId");
 
@@ -71,6 +76,8 @@ public class EditMenuItem extends AppCompatActivity {
                     edit.put("name", inputName);
                     edit.put("desc", inputDesc);
                     edit.put("price", inputPrice);
+                    edit.put("cost", itemCost);
+                    edit.put("ingredients", ingredients);
                     docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

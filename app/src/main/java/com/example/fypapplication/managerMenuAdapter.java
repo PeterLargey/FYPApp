@@ -1,6 +1,7 @@
 package com.example.fypapplication;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
+import java.util.ArrayList;
 
 public class managerMenuAdapter extends FirestoreRecyclerAdapter<MenuItem, managerMenuAdapter.ManagerMenuViewHolder> {
 
@@ -37,6 +40,8 @@ public class managerMenuAdapter extends FirestoreRecyclerAdapter<MenuItem, manag
                 i.putExtra("desc", model.getDesc());
                 i.putExtra("price", model.getPrice());
                 i.putExtra("type", model.getType());
+                i.putParcelableArrayListExtra("ingredients", (ArrayList<Ingredients>) model.getIngredients());
+                i.putExtra("cost", model.getCostPerUnit());
 
                 view.getContext().startActivity(i);
             }

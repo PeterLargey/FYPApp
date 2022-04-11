@@ -36,6 +36,7 @@ public class staffAdapter extends FirestoreRecyclerAdapter<Staff, staffAdapter.S
                 i.putExtra("username", model.getUsername());
                 i.putExtra("role", model.getRole());
                 i.putExtra("password", model.getPassword());
+                i.putExtra("wage", model.getWage());
 
                 view.getContext().startActivity(i);
             }

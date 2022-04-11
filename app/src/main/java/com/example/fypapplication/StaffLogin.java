@@ -101,6 +101,10 @@ public class StaffLogin extends AppCompatActivity {
                                                     Intent i = new Intent(StaffLogin.this, OwnerMain.class);
                                                     startActivity(i);
                                                     //manager
+                                                } else if(role.equalsIgnoreCase("chef")){
+                                                    Intent i = new Intent(StaffLogin.this, ChefMain.class);
+                                                    i.putExtra("role", role);
+                                                    startActivity(i);
                                                 }
                                                 Log.d(TAG, "onSuccess: staff profile has been logged in " + userId);
 
