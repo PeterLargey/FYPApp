@@ -23,6 +23,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date: "
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Value"
+                    android:id="@+id/currentRosterDate"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_weight="0.14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -41,11 +67,23 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
 
+                <TextView
+                    android:id="@+id/emptyRosterMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No Staff Rostered"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:visibility="invisible"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/addToRoster"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="30dp"
                     android:text="Add to Roster"
                     android:layout_gravity="center"
                     android:textSize="16sp"

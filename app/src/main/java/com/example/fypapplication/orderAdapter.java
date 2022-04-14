@@ -32,8 +32,7 @@ public class orderAdapter extends FirestoreRecyclerAdapter<Order, orderAdapter.O
     protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull Order model) {
 
         holder.tableNum.setText(model.getTableNo());
-        //holder.orderId.setText(String.valueOf(model.getOrderId()));
-        holder.timestamp.setText(model.getTimestamp().toString());
+        holder.timestamp.setText(model.getTimestamp());
 
         String docId = getSnapshots().getSnapshot(position).getId();
 
@@ -67,14 +66,12 @@ public class orderAdapter extends FirestoreRecyclerAdapter<Order, orderAdapter.O
     public class OrderViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tableNum;
-        //private TextView orderId;
         private TextView timestamp;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tableNum = itemView.findViewById(R.id.orderTableNo);
-            //orderId = itemView.findViewById(R.id.orderId);
             timestamp = itemView.findViewById(R.id.orderTimestamp);
         }
     }

@@ -9,15 +9,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +33,9 @@ public class EditRosterItem extends AppCompatActivity {
 
     private final String TAG = "TAG";
     private FirebaseFirestore db;
-    private EditText name, role, date, time;
+    private AutoCompleteTextView name, role;
+    private EditText date, time;
+    private ArrayList<String> staffNames;
     private Button update;
     private String staffName, staffRole, rosteredDate, rosteredTime, userName, docId;
     private Intent data;
@@ -48,10 +58,29 @@ public class EditRosterItem extends AppCompatActivity {
         date = findViewById(R.id.editRosteredDate);
         time = findViewById(R.id.editRosteredTime);
 
-        name.setText(staffName);
+        name.setText(userName);
         role.setText(staffRole);
         date.setText(rosteredDate);
         time.setText(rosteredTime);
+
+        String[] roleType = new String[4];
+        roleType[0] = "Host";
+        roleType[1] = "Server";
+        roleType[2] = "Manager";
+        roleType[3] = "Chef";
+
+        ArrayAdapter<String> roleAdapter = new ArrayAdapter<String>(this, R.layout.itemtype_dropdown_item, roleType);
+        role.setAdapter(roleAdapter);
+
+        role.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String item = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(view.getContext(), "Role Selected " + item, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        getStaffNames();
 
         update = findViewById(R.id.updateRosteredItem);
 
@@ -77,6 +106,41 @@ public class EditRosterItem extends AppCompatActivity {
         });
     }
 
+    private void getStaffNames() {
+        db.collection("Staff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    staffNames = new ArrayList<>();
+                    for(QueryDocumentSnapshot doc: task.getResult()){
+                        Map<String, Object> docData = doc.getData();
+                        String name = (String) docData.get("username");
+                        //Log.d(TAG, "Staff Name " + name);
+                        staffNames.add(name);
+                    }
+
+                    String[] names = new String[staffNames.size()];
+                    names = staffNames.toArray(names);
+                    for(String s : names){
+                        Log.d(TAG, "Names: " + s);
+                    }
+
+                    ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.dropdown_names, names);
+                    name.setAdapter(nameAdapter);
+
+                    name.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                            String item = adapterView.getItemAtPosition(position).toString();
+                            Toast.makeText(view.getContext(), "Staff Member Selected " + item, Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+
     private void updateRosterData(String name, String role, String date, String time, String userName) {
         DocumentReference docRef = db.collection("Roster").document(docId);
         Map<String, Object> edit = new HashMap<>();
@@ -84,7 +148,7 @@ public class EditRosterItem extends AppCompatActivity {
         edit.put("role", role);
         edit.put("date", date);
         edit.put("time", time);
-        edit.put("userName", userName);
+        edit.put("username", userName);
         docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ManagerMain extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +29,6 @@ public class ManagerMain extends AppCompatActivity {
         setContentView(R.layout.activity_manager_main);
         getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
-
-        data = getIntent();
-        String role = data.getStringExtra("role");
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 

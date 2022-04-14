@@ -13,10 +13,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CurrentRoster extends AppCompatActivity {
 
@@ -26,6 +30,7 @@ public class CurrentRoster extends AppCompatActivity {
     private rosterAdapter adapter;
     private Intent data;
     private String date;
+    private TextView emptyMessage, rosterDate;
     private final String TAG = "TAG";
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
@@ -38,6 +43,11 @@ public class CurrentRoster extends AppCompatActivity {
         data = getIntent();
         date = data.getStringExtra("date");
         Log.d(TAG, "Date: " + date);
+
+        rosterDate = findViewById(R.id.currentRosterDate);
+        rosterDate.setText(date);
+
+        emptyMessage = findViewById(R.id.emptyRosterMessage);
 
         mRecyclerView = findViewById(R.id.currentRosterRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
@@ -56,6 +66,18 @@ public class CurrentRoster extends AppCompatActivity {
 
     private void setUpRecycler() {
         Query query = db.collection("Roster").whereEqualTo("date", date).orderBy("role", Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().isEmpty()){
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         FirestoreRecyclerOptions<Roster> options = new FirestoreRecyclerOptions.Builder<Roster>().setQuery(query, Roster.class).build();
         adapter = new rosterAdapter(options);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FYPApplication">
         <activity
+            android:name=".EditInventoryItem"
+            android:exported="true" />
+        <activity
             android:name=".AddToRoster"
             android:exported="true" />
         <activity

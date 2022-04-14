@@ -44,6 +44,11 @@
         android:name="com.example.fypapplication.ProfitAndLossFragment"
         android:label="Profit and Loss"
         tools:layout="@layout/fragment_profit_and_loss"/>
+    <fragment
+        android:id="@+id/addToInventory"
+        android:name="com.example.fypapplication.AddToInventoryFragment"
+        android:label="Add Inventory Item"
+        tools:layout="@layout/fragment_add_to_inventory"/>
 
 
 </navigation>

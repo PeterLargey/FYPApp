@@ -45,7 +45,7 @@ public class EditStaff extends AppCompatActivity {
         String usernameString = data.getStringExtra("username");
         String roleString = data.getStringExtra("role");
         String passwordString = data.getStringExtra("password");
-        double wage = data.getDoubleExtra("wage", 0);
+        String wage = data.getStringExtra("wage");
         Log.d(TAG, "Wage: " + wage);
 
         String docId = data.getStringExtra("docId");

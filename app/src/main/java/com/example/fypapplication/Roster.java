@@ -2,8 +2,7 @@ package com.example.fypapplication;
 
 public class Roster {
 
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String username;
     private String role;
     private String time;
@@ -11,29 +10,20 @@ public class Roster {
 
     public Roster(){}
 
-    public Roster(String firstName, String lastName, String username, String role, String time, String date){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Roster(String fullName, String username, String role, String time, String date){
+        this.fullName = fullName;
         this.username = username;
         this.role = role;
         this.time = time;
         this.date = date;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getUsername() {

@@ -78,18 +78,18 @@ public class OwnerCreateStaffFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                double wage = 0.00;
+                                String wage = "";
                                 if(roleString.equalsIgnoreCase("server")){
-                                    wage = 14.50;
+                                    wage = "14.50";
                                 }
                                 if(roleString.equalsIgnoreCase("host")){
-                                    wage = 11.00;
+                                    wage = "11.00";
                                 }
                                 if(roleString.equalsIgnoreCase("chef")){
-                                    wage = 24.00;
+                                    wage = "24.00";
                                 }
                                 if(roleString.equalsIgnoreCase("manager")){
-                                    wage = 20.00;
+                                    wage = "20.00";
                                 }
                                 inputDataIntoStaff(usernameString, roleString, passwordString, wage);
                                 Toast.makeText(view.getContext(), "New staff member created", Toast.LENGTH_LONG).show();
@@ -106,7 +106,7 @@ public class OwnerCreateStaffFragment extends Fragment {
         return ownerCreateStaffView;
     }
 
-    private void inputDataIntoStaff(String username, String role, String password, double wage) {
+    private void inputDataIntoStaff(String username, String role, String password, String wage) {
         String TAG = "TAG";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Staff").document();

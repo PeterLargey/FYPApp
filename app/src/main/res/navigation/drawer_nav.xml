@@ -13,6 +13,10 @@
             android:name="role"
             app:argType="string"
             android:defaultValue="manager" />
+        <argument
+            android:name="staffMember"
+            app:argType="string"
+            android:defaultValue="manager@menunow.ie" />
     </fragment>
     <fragment
         android:id="@+id/createMenu"

@@ -32,8 +32,7 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:id="@+id/itemName"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1"/>
 
                 <ImageView
                     android:id="@+id/addMenuItem"

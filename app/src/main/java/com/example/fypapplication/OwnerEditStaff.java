@@ -46,8 +46,7 @@ public class OwnerEditStaff extends AppCompatActivity {
         String usernameString = data.getStringExtra("username");
         String roleString = data.getStringExtra("role");
         String passwordString = data.getStringExtra("password");
-        double wageDouble = data.getDoubleExtra("wage", 0);
-        String wageString = String.valueOf(wageDouble);
+        String wageString = data.getStringExtra("wage");
         String docId = data.getStringExtra("docId");
 
         username.setText(usernameString);
@@ -72,12 +71,11 @@ public class OwnerEditStaff extends AppCompatActivity {
                     password.setError("Please enter at least 6 characters");
                 } else {
                     DocumentReference docRef = db.collection("Staff").document(docId);
-                    double wageToBeInputtedIntoTheDB = Double.parseDouble(updatedWage);
                     Map<String, Object> edit = new HashMap<>();
                     edit.put("username", updatedUsername);
                     edit.put("role", updatedRole);
                     edit.put("password", updatedPassword);
-                    edit.put("wage", wageToBeInputtedIntoTheDB);
+                    edit.put("wage", updatedWage);
                     docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

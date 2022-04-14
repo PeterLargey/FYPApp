@@ -28,7 +28,7 @@ public class UpdateMenuItemIngredients extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private Intent data;
-    private String docId, name, price, type, desc, cost;
+    private String docId, name, price, type, desc, cost, role;
     private List<Ingredients> ingredientsList = new ArrayList<>();
     private TextView menuItemName;
     private EditText ingredientsInput, updateCost;
@@ -39,11 +39,12 @@ public class UpdateMenuItemIngredients extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_menu_item_ingredients);
-        getSupportActionBar().setTitle("Update Menu Item Ingredients Screen");
+        getSupportActionBar().setTitle("Update Ingredients Screen");
 
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 
+        role = data.getStringExtra("role");
         docId = data.getStringExtra("docId");
         name = data.getStringExtra("name");
         price = data.getStringExtra("price");
@@ -58,10 +59,14 @@ public class UpdateMenuItemIngredients extends AppCompatActivity {
 
         ingredientsInput = findViewById(R.id.ingredientsList);
         StringBuilder list = new StringBuilder("");
-        for(Ingredients i : ingredientsList){
-            list.append(i.getName() + ": " + i.getAmount() + " ");
+        if(ingredientsList != null){
+            for(Ingredients i : ingredientsList){
+                list.append(i.getName() + ": " + i.getAmount() + "\n");
+            }
+            ingredientsInput.setText(list);
+        } else {
+            ingredientsInput.setText("");
         }
-        ingredientsInput.setText(list);
 
         updateCost = findViewById(R.id.menuItemCost);
         updateCost.setText(cost);
@@ -78,24 +83,25 @@ public class UpdateMenuItemIngredients extends AppCompatActivity {
                 if(costString.isEmpty() || ingredientsString.isEmpty()){
                     Toast.makeText(getApplicationContext(), "All Fields are required", Toast.LENGTH_LONG).show();
                 } else {
-                    String[] split = ingredientsString.split(". ");
-                    for(String s : split){
+                    String[] firstSplit = ingredientsString.split("\\R");
+                    Log.d(TAG, "First Split outside loop: " + firstSplit[0]);
+                    for(String s : firstSplit){
+                        Log.d(TAG, "First Split: " + s);
                         String[] splitIntoIngredientAndAmount = s.split(": ");
                         String ingredient = splitIntoIngredientAndAmount[0];
+                        Log.d(TAG, "Ingredient: " + ingredient);
                         String amount = splitIntoIngredientAndAmount[1];
+                        Log.d(TAG, "Amount: " + amount);
                         Ingredients item = new Ingredients(ingredient, amount);
                         itemIngredients.add(item);
                     }
                     inputMenuItemData(name, price, type, desc, costString, itemIngredients);
-                    //Toast.makeText(getApplicationContext(), "Menu Item: " + name + "Ingredients Updated!", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(UpdateMenuItemIngredients.this, ChefMain.class);
+                    i.putExtra("role", role);
                     startActivity(i);
                 }
             }
         });
-
-
-
 
     }
 
@@ -106,7 +112,7 @@ public class UpdateMenuItemIngredients extends AppCompatActivity {
         update.put("name", name);
         update.put("price", price);
         update.put("desc", desc);
-        update.put("cost", costString);
+        update.put("costPerUnit", costString);
         update.put("ingredients", itemIngredients);
         docRef.set(update).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -134,6 +140,7 @@ public class UpdateMenuItemIngredients extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.backToStaffMain){
             Intent i = new Intent(UpdateMenuItemIngredients.this, ChefMain.class);
+            i.putExtra("role", role);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);

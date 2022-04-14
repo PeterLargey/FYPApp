@@ -239,7 +239,6 @@ public class OrderInfoFragment extends Fragment {
 
     private String calculateTotal(ArrayList<String> totals, String previousValue){
         double totalDouble = Double.parseDouble(previousValue);
-        //double totalDouble = 0.00;
         for(String s : totals){
             double itemDouble = Double.parseDouble(s);
             totalDouble = totalDouble + itemDouble;

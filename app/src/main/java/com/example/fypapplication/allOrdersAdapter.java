@@ -30,8 +30,7 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
     @Override
     protected void onBindViewHolder(@NonNull AllOrdersViewHolder holder, int position, @NonNull Order model) {
         holder.tableNo.setText("Table No " + model.getTableNo());
-        //holder.orderId.setText(model.getOrderId());
-        holder.timestamp.setText(model.getTimestamp().toString());
+        holder.timestamp.setText(model.getTimestamp());
         holder.serverName.setText(model.getStaffMember());
 
         String docId = getSnapshots().getSnapshot(position).getId();
@@ -49,8 +48,7 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putExtra("role", role);
                     i.putExtra("staffMember", staffMember);
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
-                    //i.putExtra("items", (Parcelable) model.getItems());
-                    i.putExtra("staffMember", model.getStaffMember());
+//                    i.putExtra("staffMember", model.getStaffMember());
                     i.putExtra("note", model.getNote());
 
                     view.getContext().startActivity(i);
@@ -63,8 +61,8 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putExtra("tableNo", model.getTableNo());
                     i.putExtra("total", model.getTotal());
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
-                    //i.putExtra("items", (Parcelable) model.getItems());
-                    i.putExtra("staffMember", model.getStaffMember());
+//                    i.putExtra("staffMember", model.getStaffMember());
+                    i.putExtra("staffMember", staffMember);
                     i.putExtra("role", role);
                     i.putExtra("note", model.getNote());
 
@@ -86,14 +84,12 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
     public class AllOrdersViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tableNo;
-        //private TextView orderId;
         private TextView timestamp;
         private TextView serverName;
         public AllOrdersViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tableNo = itemView.findViewById(R.id.allOrderTableNo);
-            //orderId = itemView.findViewById(R.id.allOrderId);
             timestamp = itemView.findViewById(R.id.allOrderTimestamp);
             serverName = itemView.findViewById(R.id.serverName);
         }

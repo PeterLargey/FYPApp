@@ -1,164 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfitAndLossFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        app:cardMaxElevation="5dp"
+        app:cardCornerRadius="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Value"
-                android:id="@+id/profitAndLossStaffCosts"
-                android:visibility="invisible"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Value"
-                android:id="@+id/profitAndLossMealCosts"
-                android:visibility="invisible"/>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:paddingBottom="15dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select Date: "
+                    android:text="Item: "
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    android:id="@+id/deleteInventoryItem"
+                    android:layout_weight="0"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inventoryItemName"
+                android:text="Value"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description: "
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Value "
+                    android:textSize="18sp"
+                    android:id="@+id/inventoryItemDesc"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Units: "
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_weight="1"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/profitAndLossDate"
-                    android:text="dd/mm/yyyy"
+                    android:id="@+id/inventoryItemUnits"
+                    android:text="Value"
                     android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_weight="0.16"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Expiry Date: "
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inventoryItemExpiry"
+                    android:text="Value"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
                     android:layout_weight="0.38"/>
 
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:paddingBottom="15dp">
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Sales: "
+                    android:text="Status: "
                     android:textSize="18sp"
-                    android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_weight="1"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/profitAndLossTotalSales"
+                    android:id="@+id/inventoryItemStatus"
                     android:text="Value"
-                    android:textSize="18sp"
-                    android:layout_weight="0.35"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:paddingBottom="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total Costs: "
                     android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/profitAndLossTotalCosts"
-                    android:text="Value"
-                    android:textSize="18sp"
-                    android:layout_weight="0.35"/>
+                    android:layout_weight="0.19"/>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:paddingBottom="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Value: "
-                    android:id="@+id/profitOrLossTextView"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/profitAndLossResult"
-                    android:text="Value"
-                    android:textSize="18sp"
-                    android:layout_weight="0.17"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/profitAndLossPieChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp" />
-
-            </LinearLayout>
-
-
 
         </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
 
-    </androidx.core.widget.NestedScrollView>
-
-</FrameLayout>
+</RelativeLayout>

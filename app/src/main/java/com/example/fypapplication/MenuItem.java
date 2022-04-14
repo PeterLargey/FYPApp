@@ -1,8 +1,12 @@
 package com.example.fypapplication;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.RequiresApi;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuItem implements Parcelable {
@@ -11,12 +15,12 @@ public class MenuItem implements Parcelable {
     private String type;
     private String desc;
     private String price;
-    private List<Ingredients> ingredients;
+    private ArrayList<Ingredients> ingredients;
     private String costPerUnit;
 
     public MenuItem(){}
 
-    public MenuItem(String type, String name, String desc, String price, List<Ingredients> ingredients, String costPerUnit){
+    public MenuItem(String type, String name, String desc, String price, ArrayList<Ingredients> ingredients, String costPerUnit){
         this.type = type;
         this.name = name;
         this.desc = desc;
@@ -25,14 +29,18 @@ public class MenuItem implements Parcelable {
         this.costPerUnit = costPerUnit;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     protected MenuItem(Parcel in) {
         name = in.readString();
         type = in.readString();
         desc = in.readString();
         price = in.readString();
+        costPerUnit = in.readString();
+        ingredients = in.readArrayList(Ingredients.class.getClassLoader());
     }
 
     public static final Creator<MenuItem> CREATOR = new Creator<MenuItem>() {
+        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public MenuItem createFromParcel(Parcel in) {
             return new MenuItem(in);
@@ -99,19 +107,22 @@ public class MenuItem implements Parcelable {
         return 0;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(type);
         parcel.writeString(desc);
         parcel.writeString(price);
+        parcel.writeString(costPerUnit);
+        parcel.writeList(ingredients);
     }
 
-    public List<Ingredients> getIngredients() {
+    public ArrayList<Ingredients> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredients> ingredients) {
+    public void setIngredients(ArrayList<Ingredients> ingredients) {
         this.ingredients = ingredients;
     }
 }

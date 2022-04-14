@@ -18,8 +18,11 @@ import java.util.ArrayList;
 
 public class chefMenuAdapter extends FirestoreRecyclerAdapter<MenuItem, chefMenuAdapter.ChefMenuViewHolder> {
 
-    public chefMenuAdapter(@NonNull FirestoreRecyclerOptions<MenuItem> options) {
+    private String role;
+
+    public chefMenuAdapter(@NonNull FirestoreRecyclerOptions<MenuItem> options, String role) {
         super(options);
+        this.role = role;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class chefMenuAdapter extends FirestoreRecyclerAdapter<MenuItem, chefMenu
                 i.putExtra("price", model.getPrice());
                 i.putParcelableArrayListExtra("ingredients", (ArrayList<Ingredients>) model.getIngredients());
                 i.putExtra("cost", model.getCostPerUnit());
+                i.putExtra("role", role);
                 view.getContext().startActivity(i);
             }
         });

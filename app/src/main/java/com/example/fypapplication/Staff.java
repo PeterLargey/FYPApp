@@ -2,24 +2,41 @@ package com.example.fypapplication;
 
 public class Staff {
 
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String username;
     private String role;
     private String password;
-    private double wage;
+    private String phoneNum;
+    private String wage;
 
     public Staff(){
 
     }
 
-    public Staff(String username, String role, String password, double wage, String firstName, String lastName){
+    public Staff(String username, String role, String password, String wage, String fullName, String phoneNum){
         this.username = username;
         this.role = role;
         this.password = password;
         this.wage = wage;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.fullName = fullName;
+        this.phoneNum = phoneNum;
+
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getUsername() {
@@ -46,27 +63,13 @@ public class Staff {
         this.password = password;
     }
 
-    public double getWage() {
+    public String getWage() {
         return wage;
     }
 
-    public void setWage(double wage) {
+    public void setWage(String wage) {
         this.wage = wage;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }

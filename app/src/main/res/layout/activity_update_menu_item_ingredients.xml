@@ -7,111 +7,123 @@
     android:padding="15dp"
     tools:context=".UpdateMenuItemIngredients">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:scrollbars="none"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Menu Item: "
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Menu Item: "
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ingredientsMenuItemName"
+                    android:text="Value"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_weight="0.4"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ingredientsMenuItemName"
-                android:text="Value"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_weight="0.38"/>
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="40dp">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredients:"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Entry Format-> Ingredient: Amount."
+                    android:layout_marginBottom="15dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ingredients:"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/black"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ingredient Format: ingredient: amount."
-                android:layout_marginBottom="12dp"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text|textMultiLine"
+                        android:lines="15"
+                        android:hint="Add Ingredients"
+                        android:textColorHint="@color/black"
+                        android:gravity="top|left"
+                        android:id="@+id/ingredientsList"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="40dp"
+                app:startIconDrawable="@drawable/ic_baseline_euro_24"
+                app:startIconTint="@color/black"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text|textMultiLine"
-                    android:lines="15"
-                    android:hint="Add Ingredients"
-                    android:textColorHint="@color/black"
-                    android:gravity="top|left"
-                    android:id="@+id/ingredientsList"/>
+                    android:id="@+id/menuItemCost"
+                    android:inputType="numberDecimal"
+                    android:hint="Update Cost"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            app:startIconDrawable="@drawable/ic_baseline_euro_24"
-            app:startIconTint="@color/black"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <EditText
+            <Button
+                android:id="@+id/updateIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/menuItemCost"
-                android:inputType="numberDecimal"
-                android:hint="Update Cost"/>
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:text="Update Ingredients"
+                android:textSize="16sp"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-
-        <Button
-            android:id="@+id/updateIngredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:text="Update Ingredients"
-            android:textSize="16sp"/>
-
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 </RelativeLayout>

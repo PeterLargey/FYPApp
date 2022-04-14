@@ -18,7 +18,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class addMenuItemAdapter extends FirestoreRecyclerAdapter<MenuItem, addMenuItemAdapter.AddItemViewHolder> {
@@ -39,7 +41,7 @@ public class addMenuItemAdapter extends FirestoreRecyclerAdapter<MenuItem, addMe
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Item added to Cart", Toast.LENGTH_LONG).show();
                 String price = String.valueOf(model.getPrice());
-                inputDataIntoCart(model.getName(), price, model.getType());
+                inputDataIntoCart(model.getName(), price, model.getType(), model.getIngredients(), model.getCostPerUnit());
             }
         });
     }
@@ -66,7 +68,7 @@ public class addMenuItemAdapter extends FirestoreRecyclerAdapter<MenuItem, addMe
         }
     }
 
-    public void inputDataIntoCart(String name, String price, String type){
+    public void inputDataIntoCart(String name, String price, String type, List<Ingredients> ingredients, String costPerUnit){
         String TAG = "TAG";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Cart").document();
@@ -74,6 +76,8 @@ public class addMenuItemAdapter extends FirestoreRecyclerAdapter<MenuItem, addMe
         order.put("type", type);
         order.put("name", name);
         order.put("price", price);
+        order.put("costPerUnit", costPerUnit);
+        order.put("ingredients", ingredients);
 
         docRef.set(order).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

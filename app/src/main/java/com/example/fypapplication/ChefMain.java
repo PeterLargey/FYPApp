@@ -48,11 +48,15 @@ public class ChefMain extends AppCompatActivity {
                     case(R.id.chefMenu):
                         fragment = new ChefMenuFragment();
                         fragment.setArguments(bundle);
-                    case(R.id.inventory):
+                        break;
+                    case(R.id.currentInventory):
                         fragment = new CurrentInventoryFragment();
                         fragment.setArguments(bundle);
-                    case(R.id.delivery):
-                        fragment = new DeliveryIntakeFragment();
+                        break;
+                    case(R.id.addItem):
+                        fragment = new AddToInventoryFragment();
+                        fragment.setArguments(bundle);
+                        break;
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.chefFragmentContainer, fragment).commit();

@@ -35,6 +35,10 @@ public class ServerOrderDetails extends AppCompatActivity {
         String tableNumber = data.getStringExtra("tableNo");
         staffMember = data.getStringExtra("staffMember");
         role = data.getStringExtra("role");
+
+        Log.d(TAG, "Staff Member " + staffMember);
+        Log.d(TAG, "Role " + role);
+
         items = (ArrayList) data.getParcelableArrayListExtra("items");
         String note = data.getStringExtra("note");
         Log.d(TAG, items.toString());
@@ -43,7 +47,6 @@ public class ServerOrderDetails extends AppCompatActivity {
         bundle.putString("total", total);
         bundle.putString("tableNo", tableNumber);
         bundle.putString("staffMember", staffMember);
-        //bundle.putParcelable("items", (Parcelable) items);
         bundle.putParcelableArrayList("items", data.getParcelableArrayListExtra("items"));
         bundle.putString("note", note);
         bundle.putString("role",role);
@@ -109,6 +112,7 @@ public class ServerOrderDetails extends AppCompatActivity {
         if(id == R.id.backToStaffMain){
             Intent i = new Intent(ServerOrderDetails.this, ServerMain.class);
             i.putExtra("staffMember", staffMember);
+            i.putExtra("role", role);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);

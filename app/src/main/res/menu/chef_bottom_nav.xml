@@ -6,14 +6,14 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_menu_book_24"/>
 
-    <item android:id="@+id/inventory"
+    <item android:id="@+id/currentInventory"
         android:title="Inventory"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_list_alt_24"/>
 
-    <item android:id="@+id/delivery"
-        android:title="Delivery"
+    <item android:id="@+id/addItem"
+        android:title="Add Item"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_local_shipping_24"/>
+        android:icon="@drawable/ic_baseline_add_circle_24"/>
 
 </menu>

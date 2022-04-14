@@ -48,6 +48,10 @@ public class AllOrdersFragment extends Fragment {
             role = getArguments().getString("role");
             staffMember = getArguments().getString("staffMember");
         }
+
+        Log.d(TAG, "Staff Member " + staffMember);
+        Log.d(TAG, "Role " + role);
+
         mRecyclerView = allOrdersView.findViewById(R.id.allOrdersRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(allOrdersView.getContext(), DividerItemDecoration.VERTICAL));
         setUpRecycler(role, staffMember);

@@ -39,10 +39,10 @@
                     android:id="@+id/rosterStaffName"
                     android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:layout_weight="0.36"/>
+                    android:layout_weight="0.34"/>
 
                 <ImageView
-                    android:layout_width="60dp"
+                    android:layout_width="45dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/removeFromRoster"
                     android:src="@drawable/ic_baseline_delete_24"

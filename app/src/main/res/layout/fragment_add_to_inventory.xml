@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditRosterItem">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddToInventoryFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginTop="15dp"
+        android:paddingBottom="70dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +21,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit Staff Roster"
+                android:text="Add Item to Inventory"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -32,32 +31,35 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name: "
-                    android:textStyle="bold"
+                    android:text="Item Name:"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select Staff Member"
-                    app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
+                    app:startIconDrawable="@drawable/ic_baseline_title_24"
                     app:startIconTint="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/editRosteredName"
-                        android:inputType="none"/>
+                        android:hint="Input Item Name"
+                        android:inputType="textPersonName"
+                        android:id="@+id/inputInventoryItemName">
+
+                    </EditText>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -66,52 +68,56 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Role: "
-                    android:textStyle="bold"
+                    android:text="Description:"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select Role"
-                    app:startIconDrawable="@drawable/ic_baseline_flag_circle_24"
+                    app:startIconDrawable="@drawable/ic_baseline_description_24"
                     app:startIconTint="@color/black"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/editRosteredRole"
-                        android:inputType="none"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:hint="Input Item Description"
+                        android:inputType="text|textMultiLine"
+                        android:lines="3"
+                        android:gravity="top|left"
+                        android:id="@+id/inputInventoryItemDesc">
 
+                    </EditText>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date: "
-                    android:textStyle="bold"
+                    android:text="Expiry Date:"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -123,61 +129,65 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Input Item Expiry Date"
                         android:inputType="textPersonName"
-                        android:id="@+id/editRosteredDate">
+                        android:id="@+id/inputInventoryItemExpiry">
 
                     </EditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="60dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Time: "
-                    android:textStyle="bold"
+                    android:text="Number of Units:"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:startIconDrawable="@drawable/ic_baseline_add_alarm_24"
+                    app:startIconDrawable="@drawable/ic_baseline_add_box_24"
                     app:startIconTint="@color/black"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Input Item Units"
                         android:inputType="textPersonName"
-                        android:id="@+id/editRosteredTime">
+                        android:id="@+id/inputInventoryItemUnits">
 
                     </EditText>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
 
             </LinearLayout>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/updateRosteredItem"
-                android:text="Update Roster"
+                android:id="@+id/addInventoryItem"
+                android:text="Add Item"
                 android:textSize="16sp"
                 android:layout_gravity="center"/>
+
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    </RelativeLayout>
-
+</FrameLayout>
