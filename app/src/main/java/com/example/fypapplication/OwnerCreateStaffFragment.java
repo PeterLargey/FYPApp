@@ -1,5 +1,6 @@
 package com.example.fypapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -60,6 +61,8 @@ public class OwnerCreateStaffFragment extends Fragment {
 
         EditText usernameInput = ownerCreateStaffView.findViewById(R.id.newStaffUsername);
         EditText passwordInput = ownerCreateStaffView.findViewById(R.id.newStaffPassword);
+        EditText contactInput = ownerCreateStaffView.findViewById(R.id.newStaffContact);
+        EditText nameInput = ownerCreateStaffView.findViewById(R.id.newStaffName);
         Button createStaffAccount = ownerCreateStaffView.findViewById(R.id.createNewStaffAccount);
 
         createStaffAccount.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +71,10 @@ public class OwnerCreateStaffFragment extends Fragment {
                 String roleString = roleInput.getText().toString();
                 String usernameString = usernameInput.getText().toString();
                 String passwordString = passwordInput.getText().toString();
+                String phoneNumString = contactInput.getText().toString();
+                String nameString = nameInput.getText().toString();
 
-                if(roleString.isEmpty() || usernameString.isEmpty() || passwordString.isEmpty()){
+                if(roleString.isEmpty() || usernameString.isEmpty() || passwordString.isEmpty() || phoneNumString.isEmpty() || nameString.isEmpty()){
                     Toast.makeText(view.getContext(), "All Fields are required", Toast.LENGTH_LONG).show();
                 } else if(passwordString.length() < 6){
                     passwordInput.setError("Please enter at least 6 characters");
@@ -78,6 +83,8 @@ public class OwnerCreateStaffFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                Log.d("TAG", "Auth Id " + String.valueOf(mAuth.getUid()));
+                                String authId = mAuth.getUid();
                                 String wage = "";
                                 if(roleString.equalsIgnoreCase("server")){
                                     wage = "14.50";
@@ -91,9 +98,12 @@ public class OwnerCreateStaffFragment extends Fragment {
                                 if(roleString.equalsIgnoreCase("manager")){
                                     wage = "20.00";
                                 }
-                                inputDataIntoStaff(usernameString, roleString, passwordString, wage);
+                                inputDataIntoStaff(usernameString, roleString, passwordString, phoneNumString, nameString, wage, authId);
                                 Toast.makeText(view.getContext(), "New staff member created", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(view.getContext(), OwnerMain.class);
+                                view.getContext().startActivity(i);
                             } else {
+                                Log.d("TAG", String.valueOf(task.getException()));
                                 Toast.makeText(view.getContext(), "An error occurred, New staff member was not created", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -106,15 +116,17 @@ public class OwnerCreateStaffFragment extends Fragment {
         return ownerCreateStaffView;
     }
 
-    private void inputDataIntoStaff(String username, String role, String password, String wage) {
+    private void inputDataIntoStaff(String username, String role, String password, String phoneNum, String name, String wage, String authId) {
         String TAG = "TAG";
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("Staff").document();
+        DocumentReference docRef = db.collection("Staff").document(authId);
         Map<String, Object> newStaff = new HashMap<>();
         newStaff.put("role", role);
         newStaff.put("username", username);
         newStaff.put("password", password);
         newStaff.put("wage", wage);
+        newStaff.put("phoneNum", phoneNum);
+        newStaff.put("fullName", name);
 
         docRef.set(newStaff).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

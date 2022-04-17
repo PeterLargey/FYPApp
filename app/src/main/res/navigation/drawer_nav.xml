@@ -27,12 +27,16 @@
         android:id="@+id/addStaff"
         android:name="com.example.fypapplication.CreateStaffFragment"
         android:label="Create Staff"
-        tools:layout="@layout/fragment_create_user" />
-    <fragment
-        android:id="@+id/deleteStaff"
-        android:name="com.example.fypapplication.DeleteStaffFragment"
-        android:label="Delete Staff"
-        tools:layout="@layout/fragment_delete_user" />
+        tools:layout="@layout/fragment_create_user">
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="manager" />
+        <argument
+            android:name="staffMember"
+            app:argType="string"
+            android:defaultValue="manager@menunow.ie" />
+    </fragment>
     <fragment
         android:id="@+id/viewStaff"
         android:name="com.example.fypapplication.DisplayStaffFragment"

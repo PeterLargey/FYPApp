@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,8 @@ public class StaffLogin extends AppCompatActivity {
         EditText username = findViewById(R.id.usernameLogin);
         EditText password = findViewById(R.id.passwordStaffLogin);
 
+        final LoadingDialog loadingDialog = new LoadingDialog(StaffLogin.this);
+
         Button login = findViewById(R.id.staffLogin);
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -56,72 +59,83 @@ public class StaffLogin extends AppCompatActivity {
                 if(usernameString.isEmpty() || passwordString.isEmpty()){
                     Toast.makeText(getApplicationContext(), "All Fields are required", Toast.LENGTH_LONG).show();
                 }else{
-                    mAuth.signInWithEmailAndPassword(usernameString, passwordString).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+                    loadingDialog.startLoadingDialog();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                String userId = mAuth.getCurrentUser().getUid();
+                        public void run() {
+                            mAuth.signInWithEmailAndPassword(usernameString, passwordString).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        String userId = mAuth.getCurrentUser().getUid();
 
+                                        Log.d(TAG, "Current user ID: " + userId);
+                                        DocumentReference docRef = db.collection("Staff").document(userId);
+                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    DocumentSnapshot snapshot = task.getResult();
+                                                    if(snapshot.exists()){
+                                                        data = snapshot.getData();
+                                                        Object[] values = data.values().toArray();
+                                                        String role = values[1].toString();
+                                                        String username = values[4].toString();
+                                                        Log.d(TAG, "Document snapshot data: " + snapshot.getData());
+                                                        Log.d(TAG, "Document snapshot data: " + data.values());
+                                                        Log.d(TAG, "Role: " + role);
 
-                                Log.d(TAG, "Current user ID: " + userId);
-                                DocumentReference docRef = db.collection("Staff").document(userId);
-                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if(task.isSuccessful()){
-                                            DocumentSnapshot snapshot = task.getResult();
-                                            if(snapshot.exists()){
-                                                data = snapshot.getData();
-                                                Object[] values = data.values().toArray();
-                                                String role = values[1].toString();
-                                                String username = values[2].toString();
-                                                Log.d(TAG, "Document snapshot data: " + snapshot.getData());
-                                                Log.d(TAG, "Document snapshot data: " + data.values());
-                                                Log.d(TAG, "Role: " + role);
+                                                        loadingDialog.dismissLoadingDialog();
+                                                        Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
+                                                        //admin
+                                                        if(role.equalsIgnoreCase("manager")){
+                                                            Intent i = new Intent(StaffLogin.this,ManagerMain.class );
+                                                            i.putExtra("staffMember", username);
+                                                            i.putExtra("role", role);
+                                                            startActivity(i);
+                                                            //server
+                                                        } else if(role.equalsIgnoreCase("server")){
+                                                            Intent i = new Intent(StaffLogin.this, ServerMain.class);
+                                                            i.putExtra("staffMember", username);
+                                                            i.putExtra("role", role);
+                                                            startActivity(i);
+                                                            //host
+                                                        } else if(role.equalsIgnoreCase("host")){
+                                                            Intent i = new Intent(StaffLogin.this, HostMain.class);
+                                                            startActivity(i);
+                                                            //owner
+                                                        } else if(role.equalsIgnoreCase("owner")){
+                                                            Intent i = new Intent(StaffLogin.this, OwnerMain.class);
+                                                            startActivity(i);
+                                                            //manager
+                                                        } else if(role.equalsIgnoreCase("chef")){
+                                                            Intent i = new Intent(StaffLogin.this, ChefMain.class);
+                                                            i.putExtra("role", role);
+                                                            startActivity(i);
+                                                        }
+                                                        Log.d(TAG, "onSuccess: staff profile has been logged in " + userId);
 
-                                                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
-                                                //admin
-                                                if(role.equalsIgnoreCase("manager")){
-                                                    Intent i = new Intent(StaffLogin.this,ManagerMain.class );
-                                                    i.putExtra("staffMember", username);
-                                                    i.putExtra("role", role);
-                                                    startActivity(i);
-                                                    //server
-                                                } else if(role.equalsIgnoreCase("server")){
-                                                    Intent i = new Intent(StaffLogin.this, ServerMain.class);
-                                                    i.putExtra("staffMember", username);
-                                                    i.putExtra("role", role);
-                                                    startActivity(i);
-                                                    //host
-                                                } else if(role.equalsIgnoreCase("host")){
-                                                    Intent i = new Intent(StaffLogin.this, HostMain.class);
-                                                    startActivity(i);
-                                                    //owner
-                                                } else if(role.equalsIgnoreCase("owner")){
-                                                    Intent i = new Intent(StaffLogin.this, OwnerMain.class);
-                                                    startActivity(i);
-                                                    //manager
-                                                } else if(role.equalsIgnoreCase("chef")){
-                                                    Intent i = new Intent(StaffLogin.this, ChefMain.class);
-                                                    i.putExtra("role", role);
-                                                    startActivity(i);
+                                                    } else {
+                                                        Log.d(TAG, "No such Doc");
+                                                    }
+                                                } else {
+                                                    Log.d(TAG, "Failed with: " + task.getException());
                                                 }
-                                                Log.d(TAG, "onSuccess: staff profile has been logged in " + userId);
-
-                                            } else {
-                                                Log.d(TAG, "No such Doc");
                                             }
-                                        } else {
-                                            Log.d(TAG, "Failed with: " + task.getException());
-                                        }
-                                    }
-                                });
+                                        });
 
-                            }else {
-                                Toast.makeText(getApplicationContext(), "Login Failed, check username!", Toast.LENGTH_LONG).show();
-                            }
+                                    }else {
+                                        loadingDialog.dismissLoadingDialog();
+                                        Toast.makeText(getApplicationContext(), "Login Failed, check username!", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
                         }
-                    });
+                    }, 4000);
+
+
                 }
             }
         });

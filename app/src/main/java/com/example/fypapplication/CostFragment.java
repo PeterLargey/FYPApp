@@ -281,7 +281,7 @@ public class CostFragment extends Fragment {
     }
 
     private void calculateStaffWages(ArrayList<StaffTimeSheet> rosterInfo) {
-        db.collection("Staff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Staff").whereNotEqualTo("role", "owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -289,11 +289,11 @@ public class CostFragment extends Fragment {
                     staffTotals = new ArrayList<>();
                     for(QueryDocumentSnapshot doc: task.getResult()){
                         Map<String, Object> docData = doc.getData();
-                        String username = (String) docData.get("username");
-                        Log.d(TAG, "UserName: " + username);
+                        String name = (String) docData.get("fullName");
+                        Log.d(TAG, "UserName: " + name);
                         String wage = (String) docData.get("wage");
                         Log.d(TAG, "Wage: " + wage);
-                        StaffInfo staffInfo = new StaffInfo(username, wage);
+                        StaffInfo staffInfo = new StaffInfo(name, wage);
                         wageInfo.add(staffInfo);
                     }
 

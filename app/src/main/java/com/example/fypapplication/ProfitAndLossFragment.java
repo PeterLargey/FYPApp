@@ -170,10 +170,6 @@ public class ProfitAndLossFragment extends Fragment {
                     }
                 });
 
-//                    setTotalCosts(staffCosts.getText().toString(), mealCosts.getText().toString());
-//                    loadPieChartData(totalCosts.getText().toString(), totalSales.getText().toString(), selectedDate);
-
-
             }
         };
 
@@ -425,7 +421,7 @@ public class ProfitAndLossFragment extends Fragment {
     }
 
     private void calculateStaffWages(ArrayList<StaffTimeSheet> rosterInfo) {
-        db.collection("Staff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Staff").whereNotEqualTo("role", "owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -433,9 +429,9 @@ public class ProfitAndLossFragment extends Fragment {
                     staffWages = new ArrayList<>();
                     for(QueryDocumentSnapshot doc: task.getResult()){
                         Map<String, Object> docData = doc.getData();
-                        String username = (String) docData.get("username");
+                        String name = (String) docData.get("fullName");
                         String wage = (String) docData.get("wage");
-                        StaffInfo staffInfo = new StaffInfo(username, wage);
+                        StaffInfo staffInfo = new StaffInfo(name, wage);
                         wageInfo.add(staffInfo);
                     }
 

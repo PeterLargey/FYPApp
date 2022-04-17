@@ -20,7 +20,6 @@ public class Staff {
         this.wage = wage;
         this.fullName = fullName;
         this.phoneNum = phoneNum;
-
     }
 
     public String getFullName() {

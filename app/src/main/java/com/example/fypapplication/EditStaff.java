@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,7 +29,8 @@ public class EditStaff extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     private FirebaseFirestore db;
-    private EditText username, role, password;
+    private EditText username, password, name, phoneNum;
+    private AutoCompleteTextView role;
     private Button button;
     private Intent data;
     @Override
@@ -38,21 +42,42 @@ public class EditStaff extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 
-        username = findViewById(R.id.editStaffName);
+        username = findViewById(R.id.editStaffUserName);
         role = findViewById(R.id.editStaffRole);
         password = findViewById(R.id.editStaffPassword);
+        name = findViewById(R.id.editStaffName);
+        phoneNum = findViewById(R.id.editStaffContactDetails);
 
         String usernameString = data.getStringExtra("username");
         String roleString = data.getStringExtra("role");
         String passwordString = data.getStringExtra("password");
         String wage = data.getStringExtra("wage");
+        String contactNum = data.getStringExtra("phoneNum");
+        String fullName = data.getStringExtra("fullName");
         Log.d(TAG, "Wage: " + wage);
 
         String docId = data.getStringExtra("docId");
 
+        String[] types = new String[2];
+        types[0] = "server";
+        types[1] = "host";
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.itemtype_dropdown_item, types);
+        role.setAdapter(adapter);
+
+        role.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String item = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(view.getContext(), "Type Selected " + item, Toast.LENGTH_LONG).show();
+            }
+        });
+
         username.setText(usernameString);
         role.setText(roleString);
         password.setText(passwordString);
+        name.setText(fullName);
+        phoneNum.setText(contactNum);
 
         button = findViewById(R.id.updateStaff);
 
@@ -62,8 +87,10 @@ public class EditStaff extends AppCompatActivity {
                 String updatedUsername = username.getText().toString();
                 String updatedRole = role.getText().toString();
                 String updatedPassword = password.getText().toString();
+                String updatedName = name.getText().toString();
+                String updatedPhoneNum = phoneNum.getText().toString();
 
-                if(updatedUsername.isEmpty() || updatedRole.isEmpty() || updatedPassword.isEmpty()){
+                if(updatedUsername.isEmpty() || updatedRole.isEmpty() || updatedPassword.isEmpty() || updatedName.isEmpty() || updatedPhoneNum.isEmpty()){
                     Toast.makeText(getApplicationContext(), "All Fields are required", Toast.LENGTH_LONG).show();
                 } else if(updatedPassword.length() < 6){
                     password.setError("Please enter at least 6 characters");
@@ -74,6 +101,8 @@ public class EditStaff extends AppCompatActivity {
                     edit.put("role", updatedRole);
                     edit.put("password", updatedPassword);
                     edit.put("wage", wage);
+                    edit.put("fullName", updatedName);
+                    edit.put("phoneNum", updatedPhoneNum);
                     docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

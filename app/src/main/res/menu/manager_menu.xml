@@ -45,10 +45,6 @@
                 android:title="Create Staff"
                 android:icon="@drawable/ic_baseline_person_add_24"/>
 
-            <item android:id="@+id/deleteStaff"
-                android:title="Delete Staff"
-                android:icon="@drawable/ic_baseline_person_remove_24"/>
-
             <item android:id="@+id/createMenu"
                 android:title="Create Menu Item"
                 android:icon="@drawable/ic_baseline_menu_book_24"/>

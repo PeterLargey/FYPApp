@@ -2,36 +2,26 @@ package com.example.fypapplication;
 
 public class Roster {
 
-    private String fullName;
-    private String username;
+    private String name;
     private String role;
     private String time;
     private String date;
 
     public Roster(){}
 
-    public Roster(String fullName, String username, String role, String time, String date){
-        this.fullName = fullName;
-        this.username = username;
+    public Roster(String name, String role, String time, String date){
+        this.name = name;
         this.role = role;
         this.time = time;
         this.date = date;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRole() {

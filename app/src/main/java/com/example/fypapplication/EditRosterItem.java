@@ -37,7 +37,7 @@ public class EditRosterItem extends AppCompatActivity {
     private EditText date, time;
     private ArrayList<String> staffNames;
     private Button update;
-    private String staffName, staffRole, rosteredDate, rosteredTime, userName, docId;
+    private String staffName, staffRole, rosteredDate, rosteredTime, docId;
     private Intent data;
 
     @Override
@@ -50,7 +50,6 @@ public class EditRosterItem extends AppCompatActivity {
         staffRole = data.getStringExtra("role");
         rosteredDate = data.getStringExtra("date");
         rosteredTime = data.getStringExtra("time");
-        userName = data.getStringExtra("userName");
         docId = data.getStringExtra("docId");
 
         name = findViewById(R.id.editRosteredName);
@@ -58,7 +57,7 @@ public class EditRosterItem extends AppCompatActivity {
         date = findViewById(R.id.editRosteredDate);
         time = findViewById(R.id.editRosteredTime);
 
-        name.setText(userName);
+        name.setText(staffName);
         role.setText(staffRole);
         date.setText(rosteredDate);
         time.setText(rosteredTime);
@@ -95,7 +94,7 @@ public class EditRosterItem extends AppCompatActivity {
                 if(updatedName.isEmpty() || updatedRole.isEmpty() || updatedDate.isEmpty() || updatedTime.isEmpty()){
                     Toast.makeText(getApplicationContext(), "All Fields are required", Toast.LENGTH_LONG).show();
                 } else {
-                    updateRosterData(updatedName, updatedRole, updatedDate, updatedTime, userName);
+                    updateRosterData(updatedName, updatedRole, updatedDate, updatedTime);
                     Toast.makeText(getApplicationContext(), "Roster Updated", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(EditRosterItem.this, CurrentRoster.class);
                     i.putExtra("date", rosteredDate);
@@ -114,8 +113,7 @@ public class EditRosterItem extends AppCompatActivity {
                     staffNames = new ArrayList<>();
                     for(QueryDocumentSnapshot doc: task.getResult()){
                         Map<String, Object> docData = doc.getData();
-                        String name = (String) docData.get("username");
-                        //Log.d(TAG, "Staff Name " + name);
+                        String name = (String) docData.get("fullName");
                         staffNames.add(name);
                     }
 
@@ -141,14 +139,13 @@ public class EditRosterItem extends AppCompatActivity {
         });
     }
 
-    private void updateRosterData(String name, String role, String date, String time, String userName) {
+    private void updateRosterData(String name, String role, String date, String time) {
         DocumentReference docRef = db.collection("Roster").document(docId);
         Map<String, Object> edit = new HashMap<>();
         edit.put("name", name);
         edit.put("role", role);
         edit.put("date", date);
         edit.put("time", time);
-        edit.put("username", userName);
         docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

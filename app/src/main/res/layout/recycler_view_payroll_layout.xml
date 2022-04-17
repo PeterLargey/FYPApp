@@ -33,10 +33,10 @@
                     android:layout_weight="1"/>
 
                 <ImageView
-                    android:id="@+id/ownerEditStaffMember"
+                    android:id="@+id/ownerDeleteStaffMember"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_baseline_edit_24"
+                    android:src="@drawable/ic_baseline_delete_24"
                     android:layout_weight="0"
                     app:tint="@color/black" />
 

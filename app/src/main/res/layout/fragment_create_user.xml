@@ -6,6 +6,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CreateStaffFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Staff Account"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="45dp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        app:startIconDrawable="@drawable/ic_baseline_title_24"
+        app:startIconTint="@color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:id="@+id/regStaffName"
+            android:hint="Enter Name"
+            android:textColorHint="@color/black">
+
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="170dp"
+        app:startIconDrawable="@drawable/ic_baseline_phone_24"
+        app:startIconTint="@color/black"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:id="@+id/regStaffContact"
+            android:hint="Enter Phone Number"
+            android:textColorHint="@color/black">
+
+        </EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/newRoleInput"
@@ -13,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="240dp"
         android:hint="Select Role"
         app:startIconDrawable="@drawable/ic_baseline_flag_circle_24"
         app:startIconTint="@color/black"
@@ -34,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="310dp"
         app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
         app:startIconTint="@color/black"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -57,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="380dp"
         app:startIconDrawable="@drawable/ic_baseline_security_24"
         app:startIconTint="@color/black"
         app:passwordToggleEnabled="true"
@@ -75,23 +130,25 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/createStaffAccount"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="490dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Password:"-->
-<!--        android:layout_marginTop="200dp"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:layout_marginRight="10dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="20sp"/>-->
+        <Button
+            android:id="@+id/createStaffAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Create Staff Account"/>
+
+    </LinearLayout>
+
+
+
+
 
 </FrameLayout>

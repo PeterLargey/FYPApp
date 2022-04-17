@@ -28,7 +28,7 @@ public class rosterAdapter extends FirestoreRecyclerAdapter<Roster, rosterAdapte
     protected void onBindViewHolder(@NonNull RosterViewHolder holder, int position, @NonNull Roster model) {
         ImageView deleteButton = holder.itemView.findViewById(R.id.removeFromRoster);
 
-        holder.name.setText(model.getUsername());
+        holder.name.setText(model.getName());
         holder.role.setText(model.getRole());
         holder.time.setText(model.getTime());
 
@@ -58,8 +58,7 @@ public class rosterAdapter extends FirestoreRecyclerAdapter<Roster, rosterAdapte
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditRosterItem.class);
-                i.putExtra("name", model.getFullName());
-                i.putExtra("userName", model.getUsername());
+                i.putExtra("name", model.getName());
                 i.putExtra("role", model.getRole());
                 i.putExtra("time", model.getTime());
                 i.putExtra("date", model.getDate());

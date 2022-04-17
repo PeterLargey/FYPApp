@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,7 +28,8 @@ public class OwnerEditStaff extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     private FirebaseFirestore db;
-    private EditText username, role, password, wage;
+    private EditText username, password, wage, name, phoneNum;
+    private AutoCompleteTextView role;
     private Button button;
     private Intent data;
 
@@ -38,8 +42,27 @@ public class OwnerEditStaff extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 
-        username = findViewById(R.id.ownerEditStaffName);
+        String[] types = new String[4];
+        types[0] = "server";
+        types[1] = "host";
+        types[2] = "manager";
+        types[3] = "chef";
+
         role = findViewById(R.id.ownerEditStaffRole);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.itemtype_dropdown_item, types);
+        role.setAdapter(adapter);
+
+        role.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String item = adapterView.getItemAtPosition(position).toString();
+                Toast.makeText(view.getContext(), "Type Selected " + item, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        name = findViewById(R.id.ownerEditStaffName);
+        username = findViewById(R.id.ownerEditStaffUsername);
+        phoneNum = findViewById(R.id.ownerEditStaffContactNum);
         password = findViewById(R.id.ownerEditStaffPassword);
         wage = findViewById(R.id.ownerEditStaffWage);
 
@@ -48,11 +71,15 @@ public class OwnerEditStaff extends AppCompatActivity {
         String passwordString = data.getStringExtra("password");
         String wageString = data.getStringExtra("wage");
         String docId = data.getStringExtra("docId");
+        String nameString = data.getStringExtra("fullName");
+        String phoneNumString = data.getStringExtra("phoneNum");
 
         username.setText(usernameString);
         role.setText(roleString);
         password.setText(passwordString);
         wage.setText(wageString);
+        name.setText(nameString);
+        phoneNum.setText(phoneNumString);
 
         button = findViewById(R.id.ownerUpdateStaff);
 
@@ -64,8 +91,10 @@ public class OwnerEditStaff extends AppCompatActivity {
                 String updatedRole = role.getText().toString();
                 String updatedPassword = password.getText().toString();
                 String updatedWage = wage.getText().toString();
+                String updatedName = name.getText().toString();
+                String updatedPhoneNum = phoneNum.getText().toString();
 
-                if(updatedUsername.isEmpty() || updatedRole.isEmpty() || updatedPassword.isEmpty() || updatedWage.isEmpty()){
+                if(updatedUsername.isEmpty() || updatedRole.isEmpty() || updatedPassword.isEmpty() || updatedWage.isEmpty() || updatedName.isEmpty() || updatedPhoneNum.isEmpty()){
                     Toast.makeText(getApplicationContext(), "All Fields are required", Toast.LENGTH_LONG).show();
                 } else if(updatedPassword.length() < 6){
                     password.setError("Please enter at least 6 characters");
@@ -76,6 +105,8 @@ public class OwnerEditStaff extends AppCompatActivity {
                     edit.put("role", updatedRole);
                     edit.put("password", updatedPassword);
                     edit.put("wage", updatedWage);
+                    edit.put("fullName", updatedName);
+                    edit.put("phoneNum", updatedPhoneNum);
                     docRef.set(edit).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {

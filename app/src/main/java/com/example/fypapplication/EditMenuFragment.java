@@ -30,10 +30,9 @@ public class EditMenuFragment extends Fragment {
 
     private final String TAG = "TAG";
     private FirebaseFirestore db;
-    private managerMenuAdapter specialAdapter, starterAdapter, mainAdapter, dessertAdapter, drinkAdapter;
-    private RecyclerView specialRecycler, starterRecycler, mainRecycler, dessertRecycler, drinkRecycler;
+    private managerMenuAdapter specialAdapter, starterAdapter, mainAdapter, dessertAdapter, drinkAdapter, kidAdapter;
+    private RecyclerView specialRecycler, starterRecycler, mainRecycler, dessertRecycler, drinkRecycler, kidRecycler;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
-    //private List<MenuSection> menuSections = new ArrayList<>();
 
 
     @Nullable
@@ -56,7 +55,20 @@ public class EditMenuFragment extends Fragment {
         drinkRecycler = editMenuView.findViewById(R.id.drinkManagerMenuRecycler);
         drinkRecycler.addItemDecoration(new DividerItemDecoration(editMenuView.getContext(), DividerItemDecoration.VERTICAL));
         setUpDrinkRecycler();
+        kidRecycler = editMenuView.findViewById(R.id.kidManagerMenuRecycler);
+        kidRecycler.addItemDecoration(new DividerItemDecoration(editMenuView.getContext(), DividerItemDecoration.VERTICAL));
+        setUpKidRecycler();
+
         return editMenuView;
+    }
+
+    private void setUpKidRecycler() {
+        Query query = db.collection("Menu").whereEqualTo("type", "Kid").orderBy("name", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<MenuItem> options = new FirestoreRecyclerOptions.Builder<MenuItem>().setQuery(query, MenuItem.class).build();
+        kidAdapter = new managerMenuAdapter(options);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        kidRecycler.setLayoutManager(staggeredGridLayoutManager);
+        kidRecycler.setAdapter(kidAdapter);
     }
 
     private void setUpRecycler(){

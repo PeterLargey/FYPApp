@@ -22,10 +22,10 @@ public class ChefMenuFragment extends Fragment {
 
     private String role;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
-    private RecyclerView specialRecyclerView, starterRecyclerView, mainRecyclerView, dessertRecyclerView;
+    private RecyclerView specialRecyclerView, starterRecyclerView, mainRecyclerView, dessertRecyclerView, kidRecyclerView;
     private FirebaseFirestore db;
     private final String TAG = "TAG";
-    private chefMenuAdapter specialAdapter, starterAdapter, mainAdapter, dessertAdapter;
+    private chefMenuAdapter specialAdapter, starterAdapter, mainAdapter, dessertAdapter, kidAdapter;
 
 
     @Nullable
@@ -49,8 +49,20 @@ public class ChefMenuFragment extends Fragment {
         dessertRecyclerView = chefMenuView.findViewById(R.id.chefDessertMenuRecycler);
         dessertRecyclerView.addItemDecoration(new DividerItemDecoration(chefMenuView.getContext(), DividerItemDecoration.VERTICAL));
         setUpDessertRecycler(role);
+        kidRecyclerView = chefMenuView.findViewById(R.id.chefKidMenuRecycler);
+        kidRecyclerView.addItemDecoration(new DividerItemDecoration(chefMenuView.getContext(), DividerItemDecoration.VERTICAL));
+        setUpKidRecycler(role);
 
         return chefMenuView;
+    }
+
+    private void setUpKidRecycler(String role) {
+        Query query = db.collection("Menu").whereEqualTo("type", "Kid").orderBy("name", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<MenuItem> options = new FirestoreRecyclerOptions.Builder<MenuItem>().setQuery(query, MenuItem.class).build();
+        kidAdapter = new chefMenuAdapter(options, role);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        kidRecyclerView.setLayoutManager(staggeredGridLayoutManager);
+        kidRecyclerView.setAdapter(kidAdapter);
     }
 
     private void setUpDessertRecycler(String role) {

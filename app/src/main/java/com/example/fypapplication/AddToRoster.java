@@ -105,7 +105,7 @@ public class AddToRoster extends AppCompatActivity {
     private void inputDataIntoRoster(String nameString, String roleString, String dateString, String timeString) {
         DocumentReference docRef = db.collection("Roster").document();
         Map<String, Object> newRosterItem = new HashMap<>();
-        newRosterItem.put("username", nameString);
+        newRosterItem.put("name", nameString);
         newRosterItem.put("role", roleString);
         newRosterItem.put("date", dateString);
         newRosterItem.put("time", timeString);
@@ -125,15 +125,14 @@ public class AddToRoster extends AppCompatActivity {
     }
 
     private void getStaffNames() {
-        db.collection("Staff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Staff").whereNotEqualTo("role", "owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     staffNames = new ArrayList<>();
                     for(QueryDocumentSnapshot doc: task.getResult()){
                         Map<String, Object> docData = doc.getData();
-                        String name = (String) docData.get("username");
-                        //Log.d(TAG, "Staff Name " + name);
+                        String name = (String) docData.get("fullName");
                         staffNames.add(name);
                     }
 

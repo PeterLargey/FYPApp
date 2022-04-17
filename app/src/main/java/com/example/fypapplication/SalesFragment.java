@@ -37,19 +37,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 
 public class SalesFragment extends Fragment {
 
     private FirebaseFirestore db;
-    private TextView date, totalSales, before4pm, between4pmAnd7pm, after7pm;
-    private PieChart salesChart;
+    private TextView date, totalSales, before4pm, between4pmAnd7pm, after7pm, mostPopularItem, mostPopularDrink;
+    private PieChart salesChart, itemChart, drinkChart;
     private DatePickerDialog datePicker;
     private String selectedDate;
     private final String TAG = "TAG";
     private ArrayList<String> totals;
     private ArrayList<SalesData> data;
+    private ArrayList<String> items;
+    private ArrayList<String> drinks;
 
     @Nullable
     @Override
@@ -62,9 +67,17 @@ public class SalesFragment extends Fragment {
         before4pm = salesView.findViewById(R.id.totalSalesBefore4pm);
         between4pmAnd7pm = salesView.findViewById(R.id.totalSalesBetween4pmAnd7pm);
         after7pm = salesView.findViewById(R.id.totalSalesAfter7pm);
+        mostPopularItem = salesView.findViewById(R.id.mostPopularItem);
+        mostPopularItem.setTextColor(Color.BLACK);
+        mostPopularDrink = salesView.findViewById(R.id.mostPopularDrink);
+        mostPopularDrink.setTextColor(Color.BLACK);
         salesChart = salesView.findViewById(R.id.salesPieChart);
+        itemChart = salesView.findViewById(R.id.mostPopularItemPieChart);
+        drinkChart = salesView.findViewById(R.id.mostPopularDrinkPieChart);
         initDatePicker();
         setUpPieChart();
+        setUpItemPieChart();
+        setUpDrinkPieChart();
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,13 +88,33 @@ public class SalesFragment extends Fragment {
         return salesView;
     }
 
+    private void setUpDrinkPieChart() {
+        drinkChart.setDrawHoleEnabled(true);
+        drinkChart.setUsePercentValues(true);
+        drinkChart.setEntryLabelTextSize(12f);
+        drinkChart.setEntryLabelColor(Color.BLACK);
+        drinkChart.getDescription().setEnabled(false);
+
+        Legend l = drinkChart.getLegend();
+        l.setEnabled(false);
+    }
+
+    private void setUpItemPieChart() {
+        itemChart.setDrawHoleEnabled(true);
+        itemChart.setUsePercentValues(true);
+        itemChart.setEntryLabelTextSize(12f);
+        itemChart.setEntryLabelColor(Color.BLACK);
+        itemChart.getDescription().setEnabled(false);
+
+        Legend l = itemChart.getLegend();
+        l.setEnabled(false);
+    }
+
     private void setUpPieChart() {
         salesChart.setDrawHoleEnabled(true);
         salesChart.setUsePercentValues(true);
         salesChart.setEntryLabelTextSize(12f);
         salesChart.setEntryLabelColor(Color.BLACK);
-//        salesChart.setCenterText("Sales " + date.getText().toString());
-//        salesChart.setCenterTextSize(24f);
         salesChart.getDescription().setEnabled(false);
 
         Legend l = salesChart.getLegend();
@@ -190,6 +223,8 @@ public class SalesFragment extends Fragment {
                         if(task.isSuccessful()){
                             totals = new ArrayList<>();
                             data = new ArrayList<>();
+                            items = new ArrayList<>();
+                            drinks = new ArrayList<>();
                             for(QueryDocumentSnapshot doc: task.getResult()){
                                 Map<String, Object> docMap = doc.getData();
                                 Log.d(TAG, docMap.toString());
@@ -204,12 +239,26 @@ public class SalesFragment extends Fragment {
                                     totals.add((String) docMap.get("total"));
                                     SalesData sale = new SalesData(time, (String) docMap.get("total"));
                                     data.add(sale);
+                                    List<HashMap<String, Object>> saleItems = (List<HashMap<String, Object>>) docMap.get("items");
+                                    for(HashMap<String, Object> item : saleItems){
+                                        String itemType = (String) item.get("type");
+                                        if(!itemType.equalsIgnoreCase("Drink")){
+                                            String itemName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + itemName);
+                                            items.add(itemName);
+                                        } else {
+                                            String drinkName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + drinkName);
+                                            drinks.add(drinkName);
+                                        }
+                                    }
                                 }
                             }
 
                             formatTotals(totals);
                             loadPieChartData(data, selectedDate);
-
+                            loadItemPieChartData(items, selectedDate);
+                            loadDrinkPieChartData(drinks, selectedDate);
                         }
                     }
                 });
@@ -224,6 +273,120 @@ public class SalesFragment extends Fragment {
 
         datePicker = new DatePickerDialog(getActivity(), dateSetListener, year, month, day);
         datePicker.setTitle("Select Date");
+    }
+
+    private void loadDrinkPieChartData(ArrayList<String> drinks, String selectedDate) {
+        drinkChart.setCenterText(selectedDate);
+        drinkChart.setCenterTextSize(24f);
+
+        int totalFrequency = drinks.size();
+        Log.d(TAG, "Total Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueDrinks = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(drinks);
+        for(String s : hashSet){
+            ItemCount drink = new ItemCount(s, 0);
+            uniqueDrinks.add(drink);
+        }
+
+        for(String s : drinks){
+            for(ItemCount i : uniqueDrinks){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueDrinks.get(0).getCount();
+        for(ItemCount i : uniqueDrinks){
+            if(maxCount < i.getCount()){
+                maxCount = i.getCount();
+                mostPopularDrink.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i : uniqueDrinks){
+            float drinkPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(drinkPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Drinks");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(drinkChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        drinkChart.setData(pieData);
+        drinkChart.invalidate();
+    }
+
+    private void loadItemPieChartData(ArrayList<String> items, String selectedDate) {
+
+        itemChart.setCenterText(selectedDate);
+        itemChart.setCenterTextSize(24f);
+
+        int totalFrequency = items.size();
+        Log.d(TAG, "Total Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueItems = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(items);
+        for(String s: hashSet){
+            ItemCount item = new ItemCount(s, 0);
+            uniqueItems.add(item);
+        }
+
+        for(String s: items){
+            for(ItemCount i : uniqueItems){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueItems.get(0).getCount();
+        for(ItemCount i : uniqueItems){
+            if(maxCount <= i.getCount()){
+                maxCount = i.getCount();
+                mostPopularItem.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i: uniqueItems){
+            float itemPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(itemPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Items");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(itemChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        itemChart.setData(pieData);
+        itemChart.invalidate();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
