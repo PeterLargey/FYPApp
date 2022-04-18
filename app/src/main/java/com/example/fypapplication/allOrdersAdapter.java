@@ -31,7 +31,7 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
     protected void onBindViewHolder(@NonNull AllOrdersViewHolder holder, int position, @NonNull Order model) {
         holder.tableNo.setText("Table No " + model.getTableNo());
         holder.timestamp.setText(model.getTimestamp());
-        holder.serverName.setText(model.getStaffMember());
+        holder.serverName.setText(model.getStaffName());
 
         String docId = getSnapshots().getSnapshot(position).getId();
 
@@ -48,7 +48,6 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putExtra("role", role);
                     i.putExtra("staffMember", staffMember);
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
-//                    i.putExtra("staffMember", model.getStaffMember());
                     i.putExtra("note", model.getNote());
 
                     view.getContext().startActivity(i);

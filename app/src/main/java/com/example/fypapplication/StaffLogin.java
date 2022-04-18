@@ -82,7 +82,7 @@ public class StaffLogin extends AppCompatActivity {
                                                         data = snapshot.getData();
                                                         Object[] values = data.values().toArray();
                                                         String role = values[1].toString();
-                                                        String username = values[4].toString();
+                                                        String username = (String) data.get("username");
                                                         Log.d(TAG, "Document snapshot data: " + snapshot.getData());
                                                         Log.d(TAG, "Document snapshot data: " + data.values());
                                                         Log.d(TAG, "Role: " + role);

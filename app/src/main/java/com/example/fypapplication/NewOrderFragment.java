@@ -51,7 +51,7 @@ public class NewOrderFragment extends Fragment {
 
     private String tableNumber;
     private String cartTotal;
-    private String staffUserName, role;
+    private String staffUserName, role, staffName;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private RecyclerView newOrderRecycler;
@@ -77,7 +77,7 @@ public class NewOrderFragment extends Fragment {
             staffUserName = getArguments().getString("staffMember");
         }
 
-
+        Log.d(TAG, "New Order Staff Member: " + staffUserName);
 
         TextView tableNo = newOrderView.findViewById(R.id.newOrderTableNo);
         tableNo.setText(tableNumber);
@@ -123,7 +123,7 @@ public class NewOrderFragment extends Fragment {
                                 Toast.makeText(view.getContext(), "No Items in Order", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(view.getContext(), "Order Created", Toast.LENGTH_LONG).show();
-                                inputOrderData(tableNumber, timestamp, staffUserName, items, total.getText().toString(), note);
+                                inputOrderData(tableNumber, timestamp, staffUserName, items, total.getText().toString(), note, staffName);
                                 db.collection("Cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -209,7 +209,7 @@ public class NewOrderFragment extends Fragment {
         return total;
     }
 
-    private void inputOrderData(String tableNo, String timestamp, String username, List<MenuItem> items, String total, String note){
+    private void inputOrderData(String tableNo, String timestamp, String username, List<MenuItem> items, String total, String note, String staffName){
         DocumentReference docRef = db.collection("Orders").document();
         Map<String, Object> newOrder = new HashMap<>();
         newOrder.put("tableNo", tableNo);
@@ -218,6 +218,7 @@ public class NewOrderFragment extends Fragment {
         newOrder.put("items", items);
         newOrder.put("total", total);
         newOrder.put("note", note);
+        newOrder.put("staffName", staffName);
         docRef.set(newOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -254,7 +255,8 @@ public class NewOrderFragment extends Fragment {
                         Object[] values = data.values().toArray();
                         Log.d(TAG, "Document snapshot data: " + snapshot.getData());
                         Log.d(TAG, "Document snapshot data: " + Arrays.toString(values));
-                        staffUserName = (String) values[2];
+                        staffName = (String) values[2];
+                        Log.d(TAG, "Get Server Name Function: " + staffName);
                     }
                 }
             }

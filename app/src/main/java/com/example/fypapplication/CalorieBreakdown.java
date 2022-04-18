@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class CalorieBreakdown extends AppCompatActivity {
     private TextView name, calories, desc, sugars, proteins, fats, carbohydrates;
     private final String TAG = "TAG";
     private String customerName;
+    private ArrayList<Ingredients> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +57,25 @@ public class CalorieBreakdown extends AppCompatActivity {
 
         String itemName = data.getStringExtra("name");
         String itemDesc = data.getStringExtra("desc");
+        ingredients = data.getParcelableArrayListExtra("ingredients");
         name.setText(itemName);
         desc.setText(itemDesc);
 
         String apiKey = "1T1UW7WJL7YB9qxTGgC30Q==qxkq7426qvRwyUWt";
-        if(itemName.equalsIgnoreCase("Surf & Turf")){
-            getItemBreakdown(apiKey, itemDesc);
-        } else{
-            getItemBreakdown(apiKey, itemName);
+//        if(itemName.equalsIgnoreCase("Surf & Turf")){
+//            getItemBreakdown(apiKey, itemDesc);
+//        } else{
+//            getItemBreakdown(apiKey, itemName);
+//        }
+        StringBuilder ingredientString = new StringBuilder("");
+        for(Ingredients i : ingredients){
+            String formattedIngredient = i.getAmount() + " " + i.getName() + " ";
+            ingredientString.append(formattedIngredient);
         }
+
+        Log.d(TAG, "Ingredient String: " + ingredientString.toString());
+
+        getItemBreakdown(apiKey, ingredientString.toString());
 
     }
 

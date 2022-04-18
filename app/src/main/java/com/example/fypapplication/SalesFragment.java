@@ -46,8 +46,8 @@ import java.util.Map;
 public class SalesFragment extends Fragment {
 
     private FirebaseFirestore db;
-    private TextView date, totalSales, before4pm, between4pmAnd7pm, after7pm, mostPopularItem, mostPopularDrink;
-    private PieChart salesChart, itemChart, drinkChart;
+    private TextView date, totalSales, before4pm, between4pmAnd7pm, after7pm, mostPopularItem, mostPopularDrink, mostPopularStarter, mostPopularMain, mostPopularDessert, mostPopularSpecial, mostPopularKid;
+    private PieChart salesChart, itemChart, drinkChart, starterChart, mainCourseChart, dessertChart, specialChart, kidChart;
     private DatePickerDialog datePicker;
     private String selectedDate;
     private final String TAG = "TAG";
@@ -55,6 +55,12 @@ public class SalesFragment extends Fragment {
     private ArrayList<SalesData> data;
     private ArrayList<String> items;
     private ArrayList<String> drinks;
+    private ArrayList<String> starters;
+    private ArrayList<String> mains;
+    private ArrayList<String> desserts;
+    private ArrayList<String> specials;
+    private ArrayList<String> kids;
+
 
     @Nullable
     @Override
@@ -69,15 +75,35 @@ public class SalesFragment extends Fragment {
         after7pm = salesView.findViewById(R.id.totalSalesAfter7pm);
         mostPopularItem = salesView.findViewById(R.id.mostPopularItem);
         mostPopularItem.setTextColor(Color.BLACK);
+        mostPopularStarter = salesView.findViewById(R.id.mostPopularStarter);
+        mostPopularStarter.setTextColor(Color.BLACK);
+        mostPopularMain = salesView.findViewById(R.id.mostPopularMain);
+        mostPopularMain.setTextColor(Color.BLACK);
+        mostPopularDessert = salesView.findViewById(R.id.mostPopularDessert);
+        mostPopularDessert.setTextColor(Color.BLACK);
         mostPopularDrink = salesView.findViewById(R.id.mostPopularDrink);
         mostPopularDrink.setTextColor(Color.BLACK);
+        mostPopularSpecial = salesView.findViewById(R.id.mostPopularSpecial);
+        mostPopularSpecial.setTextColor(Color.BLACK);
+        mostPopularKid = salesView.findViewById(R.id.mostPopularKidsItem);
+        mostPopularKid.setTextColor(Color.BLACK);
         salesChart = salesView.findViewById(R.id.salesPieChart);
         itemChart = salesView.findViewById(R.id.mostPopularItemPieChart);
+        starterChart = salesView.findViewById(R.id.starterPieChart);
+        mainCourseChart = salesView.findViewById(R.id.mainCoursePieChart);
+        dessertChart = salesView.findViewById(R.id.dessertPieChart);
+        specialChart = salesView.findViewById(R.id.specialPieChart);
+        kidChart = salesView.findViewById(R.id.kidsPieChart);
         drinkChart = salesView.findViewById(R.id.mostPopularDrinkPieChart);
         initDatePicker();
         setUpPieChart();
         setUpItemPieChart();
+        setUpStarterPieChart();
+        setUpMainPieChart();
+        setUpDessertPieChart();
         setUpDrinkPieChart();
+        setUpSpecialPieChart();
+        setUpKidPieChart();
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +112,61 @@ public class SalesFragment extends Fragment {
         });
 
         return salesView;
+    }
+
+    private void setUpSpecialPieChart() {
+        specialChart.setDrawHoleEnabled(true);
+        specialChart.setUsePercentValues(true);
+        specialChart.setEntryLabelTextSize(12f);
+        specialChart.setEntryLabelColor(Color.BLACK);
+        specialChart.getDescription().setEnabled(false);
+
+        Legend l = specialChart.getLegend();
+        l.setEnabled(false);
+    }
+
+    private void setUpKidPieChart() {
+        kidChart.setDrawHoleEnabled(true);
+        kidChart.setUsePercentValues(true);
+        kidChart.setEntryLabelTextSize(12f);
+        kidChart.setEntryLabelColor(Color.BLACK);
+        kidChart.getDescription().setEnabled(false);
+
+        Legend l = kidChart.getLegend();
+        l.setEnabled(false);
+    }
+
+    private void setUpMainPieChart() {
+        mainCourseChart.setDrawHoleEnabled(true);
+        mainCourseChart.setUsePercentValues(true);
+        mainCourseChart.setEntryLabelTextSize(12f);
+        mainCourseChart.setEntryLabelColor(Color.BLACK);
+        mainCourseChart.getDescription().setEnabled(false);
+
+        Legend l = mainCourseChart.getLegend();
+        l.setEnabled(false);
+    }
+
+    private void setUpDessertPieChart() {
+        dessertChart.setDrawHoleEnabled(true);
+        dessertChart.setUsePercentValues(true);
+        dessertChart.setEntryLabelTextSize(12f);
+        dessertChart.setEntryLabelColor(Color.BLACK);
+        dessertChart.getDescription().setEnabled(false);
+
+        Legend l = dessertChart.getLegend();
+        l.setEnabled(false);
+    }
+
+    private void setUpStarterPieChart() {
+        starterChart.setDrawHoleEnabled(true);
+        starterChart.setUsePercentValues(true);
+        starterChart.setEntryLabelTextSize(12f);
+        starterChart.setEntryLabelColor(Color.BLACK);
+        starterChart.getDescription().setEnabled(false);
+
+        Legend l = starterChart.getLegend();
+        l.setEnabled(false);
     }
 
     private void setUpDrinkPieChart() {
@@ -224,6 +305,11 @@ public class SalesFragment extends Fragment {
                             totals = new ArrayList<>();
                             data = new ArrayList<>();
                             items = new ArrayList<>();
+                            starters = new ArrayList<>();
+                            mains = new ArrayList<>();
+                            desserts = new ArrayList<>();
+                            specials = new ArrayList<>();
+                            kids = new ArrayList<>();
                             drinks = new ArrayList<>();
                             for(QueryDocumentSnapshot doc: task.getResult()){
                                 Map<String, Object> docMap = doc.getData();
@@ -242,10 +328,31 @@ public class SalesFragment extends Fragment {
                                     List<HashMap<String, Object>> saleItems = (List<HashMap<String, Object>>) docMap.get("items");
                                     for(HashMap<String, Object> item : saleItems){
                                         String itemType = (String) item.get("type");
-                                        if(!itemType.equalsIgnoreCase("Drink")){
-                                            String itemName = (String) item.get("name");
-                                            Log.d(TAG, "Name: " + itemName);
-                                            items.add(itemName);
+                                        if(itemType.equalsIgnoreCase("Starter")){
+                                            String starterName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + starterName);
+                                            starters.add(starterName);
+                                            items.add(starterName);
+                                        } else if(itemType.equalsIgnoreCase("Main")){
+                                            String mainName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + mainName);
+                                            mains.add(mainName);
+                                            items.add(mainName);
+                                        } else if(itemType.equalsIgnoreCase("Special")){
+                                            String specialName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + specialName);
+                                            specials.add(specialName);
+                                            items.add(specialName);
+                                        } else if(itemType.equalsIgnoreCase("Dessert")){
+                                            String dessertName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + dessertName);
+                                            desserts.add(dessertName);
+                                            items.add(dessertName);
+                                        } else if(itemType.equalsIgnoreCase("Kid")){
+                                            String kidName = (String) item.get("name");
+                                            Log.d(TAG, "Name: " + kidName);
+                                            kids.add(kidName);
+                                            items.add(kidName);
                                         } else {
                                             String drinkName = (String) item.get("name");
                                             Log.d(TAG, "Name: " + drinkName);
@@ -256,9 +363,15 @@ public class SalesFragment extends Fragment {
                             }
 
                             formatTotals(totals);
-                            loadPieChartData(data, selectedDate);
-                            loadItemPieChartData(items, selectedDate);
-                            loadDrinkPieChartData(drinks, selectedDate);
+                            loadPieChartData(data);
+                            loadItemPieChartData(items);
+                            loadStartersPieChartData(starters);
+                            loadMainsPieChartData(mains);
+                            loadDessertPieChartData(desserts);
+                            loadSpecialsPieChartData(specials);
+                            loadKisPieChartData(kids);
+                            loadDrinkPieChartData(drinks);
+
                         }
                     }
                 });
@@ -275,12 +388,298 @@ public class SalesFragment extends Fragment {
         datePicker.setTitle("Select Date");
     }
 
-    private void loadDrinkPieChartData(ArrayList<String> drinks, String selectedDate) {
-        drinkChart.setCenterText(selectedDate);
+    private void loadKisPieChartData(ArrayList<String> kids) {
+        kidChart.setCenterText("Kids");
+        kidChart.setCenterTextSize(24f);
+
+        int totalFrequency = kids.size();
+        Log.d(TAG, "Total Kids Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueKids = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(kids);
+        for(String s : hashSet){
+            ItemCount kid = new ItemCount(s, 0);
+            uniqueKids.add(kid);
+        }
+
+        for(String s : kids){
+            for(ItemCount i : uniqueKids){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueKids.get(0).getCount();
+        mostPopularKid.setText(uniqueKids.get(0).getName());
+        for(ItemCount i : uniqueKids){
+            if(maxCount < i.getCount()){
+                maxCount = i.getCount();
+                mostPopularKid.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i : uniqueKids){
+            float kidPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(kidPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Kids");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(kidChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        kidChart.setData(pieData);
+        kidChart.invalidate();
+    }
+
+    private void loadSpecialsPieChartData(ArrayList<String> specials) {
+        specialChart.setCenterText("Specials");
+        specialChart.setCenterTextSize(24f);
+
+        int totalFrequency = specials.size();
+        Log.d(TAG, "Total Specials Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueSpecials = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(specials);
+        for(String s : hashSet){
+            ItemCount special = new ItemCount(s, 0);
+            uniqueSpecials.add(special);
+        }
+
+        for(String s : specials){
+            for(ItemCount i : uniqueSpecials){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueSpecials.get(0).getCount();
+        mostPopularSpecial.setText(uniqueSpecials.get(0).getName());
+        for(ItemCount i : uniqueSpecials){
+            if(maxCount < i.getCount()){
+                maxCount = i.getCount();
+                mostPopularSpecial.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i : uniqueSpecials){
+            float specialPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(specialPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Specials");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(specialChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        specialChart.setData(pieData);
+        specialChart.invalidate();
+    }
+
+    private void loadDessertPieChartData(ArrayList<String> desserts) {
+        dessertChart.setCenterText("Desserts");
+        dessertChart.setCenterTextSize(24f);
+
+        int totalFrequency = desserts.size();
+        Log.d(TAG, "Total Desserts Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueDesserts = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(desserts);
+        for(String s : hashSet){
+            ItemCount dessert = new ItemCount(s, 0);
+            uniqueDesserts.add(dessert);
+        }
+
+        for(String s : desserts){
+            for(ItemCount i : uniqueDesserts){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueDesserts.get(0).getCount();
+        mostPopularDessert.setText(uniqueDesserts.get(0).getName());
+        for(ItemCount i : uniqueDesserts){
+            if(maxCount < i.getCount()){
+                maxCount = i.getCount();
+                mostPopularDessert.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i : uniqueDesserts){
+            float dessertPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(dessertPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Desserts");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(dessertChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        dessertChart.setData(pieData);
+        dessertChart.invalidate();
+    }
+
+    private void loadMainsPieChartData(ArrayList<String> mains) {
+        mainCourseChart.setCenterText("Mains");
+        mainCourseChart.setCenterTextSize(24f);
+
+        int totalFrequency = mains.size();
+        Log.d(TAG, "Total Mains Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueMains = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(mains);
+        for(String s : hashSet){
+            ItemCount main = new ItemCount(s, 0);
+            uniqueMains.add(main);
+        }
+
+        for(String s : mains){
+            for(ItemCount i : uniqueMains){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueMains.get(0).getCount();
+        mostPopularMain.setText(uniqueMains.get(0).getName());
+        for(ItemCount i : uniqueMains){
+            if(maxCount < i.getCount()){
+                maxCount = i.getCount();
+                mostPopularMain.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i : uniqueMains){
+            float mainPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(mainPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Mains");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(mainCourseChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        mainCourseChart.setData(pieData);
+        mainCourseChart.invalidate();
+    }
+
+    private void loadStartersPieChartData(ArrayList<String> starters) {
+        starterChart.setCenterText("Starters");
+        starterChart.setCenterTextSize(24f);
+
+        int totalFrequency = starters.size();
+        Log.d(TAG, "Total Starters Frequency: " + totalFrequency);
+        ArrayList<ItemCount> uniqueStarters = new ArrayList<>();
+        HashSet<String> hashSet = new HashSet<String>(starters);
+        for(String s : hashSet){
+            ItemCount starter = new ItemCount(s, 0);
+            uniqueStarters.add(starter);
+        }
+
+        for(String s : starters){
+            for(ItemCount i : uniqueStarters){
+                if(s.equalsIgnoreCase(i.getName())){
+                    int count = i.getCount();
+                    count = count + 1;
+                    i.setCount(count);
+                }
+            }
+        }
+
+        int maxCount = uniqueStarters.get(0).getCount();
+        mostPopularStarter.setText(uniqueStarters.get(0).getName());
+        for(ItemCount i : uniqueStarters){
+            if(maxCount < i.getCount()){
+                maxCount = i.getCount();
+                mostPopularStarter.setText(i.getName());
+            }
+        }
+
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+        for(ItemCount i : uniqueStarters){
+            float starterPercentage = calculatePercentage(i.getCount(), totalFrequency);
+            entries.add(new PieEntry(starterPercentage, i.getName()));
+        }
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int color: ColorTemplate.MATERIAL_COLORS){
+            colors.add(color);
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, "Starters");
+        dataSet.setColors(colors);
+
+        PieData pieData = new PieData(dataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter(starterChart));
+        pieData.setValueTextSize(12f);
+        pieData.setValueTextColor(Color.BLACK);
+
+        starterChart.setData(pieData);
+        starterChart.invalidate();
+
+    }
+
+    private void loadDrinkPieChartData(ArrayList<String> drinks) {
+        drinkChart.setCenterText("Drinks");
         drinkChart.setCenterTextSize(24f);
 
         int totalFrequency = drinks.size();
-        Log.d(TAG, "Total Frequency: " + totalFrequency);
+        Log.d(TAG, "Total Drinks Frequency: " + totalFrequency);
         ArrayList<ItemCount> uniqueDrinks = new ArrayList<>();
         HashSet<String> hashSet = new HashSet<String>(drinks);
         for(String s : hashSet){
@@ -299,6 +698,7 @@ public class SalesFragment extends Fragment {
         }
 
         int maxCount = uniqueDrinks.get(0).getCount();
+        mostPopularDrink.setText(uniqueDrinks.get(0).getName());
         for(ItemCount i : uniqueDrinks){
             if(maxCount < i.getCount()){
                 maxCount = i.getCount();
@@ -331,9 +731,9 @@ public class SalesFragment extends Fragment {
         drinkChart.invalidate();
     }
 
-    private void loadItemPieChartData(ArrayList<String> items, String selectedDate) {
+    private void loadItemPieChartData(ArrayList<String> items) {
 
-        itemChart.setCenterText(selectedDate);
+        itemChart.setCenterText("Food Items");
         itemChart.setCenterTextSize(24f);
 
         int totalFrequency = items.size();
@@ -356,6 +756,7 @@ public class SalesFragment extends Fragment {
         }
 
         int maxCount = uniqueItems.get(0).getCount();
+        mostPopularItem.setText(uniqueItems.get(0).getName());
         for(ItemCount i : uniqueItems){
             if(maxCount <= i.getCount()){
                 maxCount = i.getCount();
@@ -390,9 +791,9 @@ public class SalesFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void loadPieChartData(ArrayList<SalesData> data, String selectedDate) {
+    private void loadPieChartData(ArrayList<SalesData> data) {
 
-        salesChart.setCenterText(selectedDate);
+        salesChart.setCenterText("Sales");
         salesChart.setCenterTextSize(24f);
 
         int totalFrequency = data.size();

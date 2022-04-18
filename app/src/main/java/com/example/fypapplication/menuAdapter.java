@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import java.util.ArrayList;
+
 public class menuAdapter extends FirestoreRecyclerAdapter<MenuItem, menuAdapter.MenuViewHolder> {
 
     private String customerName;
@@ -35,6 +37,7 @@ public class menuAdapter extends FirestoreRecyclerAdapter<MenuItem, menuAdapter.
                 Intent i = new Intent(view.getContext(), CalorieBreakdown.class);
                 i.putExtra("name", model.getName());
                 i.putExtra("desc", model.getDesc());
+                i.putParcelableArrayListExtra("ingredients", (ArrayList<Ingredients>) model.getIngredients());
                 i.putExtra("customerName", customerName);
                 view.getContext().startActivity(i);
             }

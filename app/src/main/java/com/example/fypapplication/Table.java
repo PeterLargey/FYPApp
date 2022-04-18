@@ -17,4 +17,6 @@ public class Table {
     public void setTableNo(int tableNo) {
         this.tableNo = tableNo;
     }
+
+
 }

@@ -180,7 +180,7 @@ public class OrderInfoFragment extends Fragment {
                 i.putExtra("tableNo", tableNumber);
                 i.putExtra("total", updateOrderTotal.getText().toString());
                 i.putExtra("staffMember", staffMember);
-                i.putParcelableArrayListExtra("items", (ArrayList) mergedItems);
+                i.putParcelableArrayListExtra("items", (ArrayList) items);
                 i.putExtra("docId", docId);
                 i.putExtra("role", role);
                 i.putExtra("timestamp", timestamp);
