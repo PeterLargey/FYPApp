@@ -139,6 +139,10 @@ public class EditMenuFragment extends Fragment {
         if(specialAdapter != null){
             specialAdapter.startListening();
         }
+
+        if(kidAdapter != null){
+            kidAdapter.startListening();
+        }
     }
 
     @Override
@@ -163,142 +167,11 @@ public class EditMenuFragment extends Fragment {
         if(specialAdapter != null){
             specialAdapter.stopListening();
         }
+
+        if(kidAdapter != null){
+            kidAdapter.stopListening();
+        }
     }
 
-//    private void MenuData(){
-//        String sectionOneTitle = "Starters";
-//        //List<MenuItem> starters = new ArrayList<>();
-//        db.collection("Menu").whereEqualTo("type", "Starter").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    List<MenuItem> starters = new ArrayList<>();
-//                    for(QueryDocumentSnapshot document : task.getResult()){
-//                        //Log.d(TAG, document.getId() + " => " + document.getData());
-//                        Map<String, Object> data = document.getData();
-//                        Object[] values = data.values().toArray();
-//                        //Log.d(TAG, "Document snapshot data: " + values);
-//                        String price = (String) values[0];
-//                        //Log.d(TAG, "Price:  " + price);
-//                        String name = (String) values[1];
-//                        String type = (String) values[2];
-//                        String desc = (String) values[3];
-//                        //Log.d(TAG, "MenuItem:  " + name + " " + desc + " " + price);
-//                        MenuItem item = new MenuItem(type, name, desc, price);
-//                        //starters.add(item);
-//                        starters.add(item);
-//
-//                    }
-//                    MenuSection starterSection = new MenuSection(sectionOneTitle, starters);
-//                    menuSections.add(starterSection);
-//                    Log.d(TAG, "Menu Section" + menuSections.toString());
-//
-//                }else {
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-//
-//
-//
-//        String sectionTwoTitle = "Mains";
-//        db.collection("Menu").whereEqualTo("type", "Main").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    List<MenuItem> mains = new ArrayList<>();
-//                    for(QueryDocumentSnapshot document : task.getResult()){
-//                        //Log.d(TAG, document.getId() + " => " + document.getData());
-//                        Map<String, Object> data = document.getData();
-//                        Object[] values = data.values().toArray();
-//                        //Log.d(TAG, "Document snapshot data: " + values);
-//                        String price = (String) values[0];
-//                        //Log.d(TAG, "Price:  " + price);
-//                        String name = (String) values[1];
-//                        String type = (String) values[2];
-//                        String desc = (String) values[3];
-//                        //Log.d(TAG, "MenuItem:  " + name + " " + desc + " " + price);
-//                        MenuItem item = new MenuItem(type, name, desc, price);
-//                        //starters.add(item);
-//                        mains.add(item);
-//
-//                    }
-//                    MenuSection mainSection = new MenuSection(sectionTwoTitle, mains);
-//                    menuSections.add(mainSection);
-//                    Log.d(TAG, "Menu Section" + menuSections.toString());
-//                }else{
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-//
-//
-//        String sectionThreeTitle = "Desserts";
-//        db.collection("Menu").whereEqualTo("type", "Dessert").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    List<MenuItem> desserts = new ArrayList<>();
-//                    for(QueryDocumentSnapshot document : task.getResult()){
-//                        //Log.d(TAG, document.getId() + " => " + document.getData());
-//                        Map<String, Object> data = document.getData();
-//                        Object[] values = data.values().toArray();
-//                        //Log.d(TAG, "Document snapshot data: " + values);
-//                        String price = (String) values[0];
-//                        //Log.d(TAG, "Price:  " + price);
-//                        String name = (String) values[1];
-//                        String type = (String) values[2];
-//                        String desc = (String) values[3];
-//                        //Log.d(TAG, "MenuItem:  " + name + " " + desc + " " + price);
-//                        MenuItem item = new MenuItem(type, name, desc, price);
-//                        //starters.add(item);
-//                        desserts.add(item);
-//
-//                    }
-//                    MenuSection dessertSection = new MenuSection(sectionThreeTitle, desserts);
-//                    menuSections.add(dessertSection);
-//                    Log.d(TAG, "Menu Section" + menuSections.toString());
-//                }else{
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-//
-//
-//
-//        String sectionFourTitle = "Drinks";
-//        db.collection("Menu").whereEqualTo("type", "Drink").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//                    List<MenuItem> drinks = new ArrayList<>();
-//                    for(QueryDocumentSnapshot document : task.getResult()){
-//                        //Log.d(TAG, document.getId() + " => " + document.getData());
-//                        Map<String, Object> data = document.getData();
-//                        Object[] values = data.values().toArray();
-//                        //Log.d(TAG, "Document snapshot data: " + values);
-//                        String price = (String) values[0];
-//                        //Log.d(TAG, "Price:  " + price);
-//                        String name = (String) values[1];
-//                        String type = (String) values[2];
-//                        String desc = (String) values[3];
-//                        //Log.d(TAG, "MenuItem:  " + name + " " + desc + " " + price);
-//                        MenuItem item = new MenuItem(type, name, desc, price);
-//                        //starters.add(item);
-//                        drinks.add(item);
-//
-//                    }
-//                    MenuSection drinkSection = new MenuSection(sectionFourTitle, drinks);
-//                    menuSections.add(drinkSection);
-//                    adapter = new menuRecyclerAdapter(menuSections);
-//                    mRecyclerView.setAdapter(adapter);
-//                    Log.d(TAG, "Menu Section" + menuSections.toString());
-//                }else{
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-//
-//    }
 
 }
