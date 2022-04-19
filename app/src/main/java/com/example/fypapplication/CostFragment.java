@@ -265,8 +265,10 @@ public class CostFragment extends Fragment {
                             String name = (String) docData.get("name");
                             String time = (String) docData.get("time");
                             String[] split = time.split(" - ");
-                            int start = Integer.parseInt(split[0]);
-                            int finish = Integer.parseInt(split[1]);
+                            int start = twentyFourHourConversion(split[0]);
+                            int finish = twentyFourHourConversion(split[1]);
+                            //int start = Integer.parseInt(split[0]);
+                            //int finish = Integer.parseInt(split[1]);
                             int totalHours = finish - start;
                             String hours = String.valueOf(totalHours);
                             StaffTimeSheet staffTimeSheet = new StaffTimeSheet(name, hours);
@@ -278,6 +280,78 @@ public class CostFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private int twentyFourHourConversion(String time) {
+        if(time.equalsIgnoreCase("1am")){
+            return 1;
+        }
+        if(time.equalsIgnoreCase("2am")){
+            return 2;
+        }
+        if(time.equalsIgnoreCase("5am")){
+            return 5;
+        }
+        if(time.equalsIgnoreCase("6am")){
+            return 6;
+        }
+        if(time.equalsIgnoreCase("7am")){
+            return 7;
+        }
+        if(time.equalsIgnoreCase("8am")){
+            return 8;
+        }
+        if(time.equalsIgnoreCase("9am")){
+            return 9;
+        }
+        if(time.equalsIgnoreCase("10am")){
+            return 10;
+        }
+        if(time.equalsIgnoreCase("11am")){
+            return 11;
+        }
+
+        if(time.equalsIgnoreCase("12pm")){
+            return 12;
+        }
+        if(time.equalsIgnoreCase("1pm")){
+            return 13;
+        }
+        if(time.equalsIgnoreCase("2pm")){
+            return 14;
+        }
+        if(time.equalsIgnoreCase("3pm")){
+            return 15;
+        }
+        if(time.equalsIgnoreCase("4pm")){
+            return 16;
+        }
+        if(time.equalsIgnoreCase("5pm")){
+            return 17;
+        }
+        if(time.equalsIgnoreCase("6pm")){
+            return 18;
+        }
+        if(time.equalsIgnoreCase("7pm")){
+            return 19;
+        }
+        if(time.equalsIgnoreCase("8pm")){
+            return 20;
+        }
+        if(time.equalsIgnoreCase("9pm")){
+            return 21;
+        }
+        if(time.equalsIgnoreCase("10pm")){
+            return 22;
+        }
+        if(time.equalsIgnoreCase("11pm")){
+            return 23;
+        }
+        if(time.equalsIgnoreCase("12am")){
+            return 24;
+        }
+
+        return 22;
     }
 
     private void calculateStaffWages(ArrayList<StaffTimeSheet> rosterInfo) {

@@ -9,19 +9,25 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class CurrentInventoryFragment extends Fragment {
 
     private String role;
     private RecyclerView mRecyclerView;
+    private TextView emptyMessage;
     private inventoryAdapter adapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private FirebaseFirestore db;
@@ -37,6 +43,7 @@ public class CurrentInventoryFragment extends Fragment {
         }
         mRecyclerView = currentInventoryView.findViewById(R.id.currentInventoryRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(currentInventoryView.getContext(), DividerItemDecoration.VERTICAL));
+        emptyMessage = currentInventoryView.findViewById(R.id.inventoryEmptyMessage);
         setUpRecycler();
 
         return currentInventoryView;
@@ -44,6 +51,18 @@ public class CurrentInventoryFragment extends Fragment {
 
     private void setUpRecycler() {
         Query query = db.collection("Inventory").orderBy("name", Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().isEmpty()){
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         FirestoreRecyclerOptions<InventoryItem> options = new FirestoreRecyclerOptions.Builder<InventoryItem>().setQuery(query, InventoryItem.class).build();
         adapter = new inventoryAdapter(options, role);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,8 +41,7 @@ public class ServerOrderFragment extends Fragment {
     private orderAdapter adapter;
     private final String TAG = "TAG";
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
-
-
+    private TextView emptyMessage;
 
     @Nullable
     @Override
@@ -53,6 +53,7 @@ public class ServerOrderFragment extends Fragment {
             role = getArguments().getString("role");
 
         }
+        emptyMessage = serverOrderView.findViewById(R.id.myOrdersEmptyMessage);
         mRecyclerView = serverOrderView.findViewById(R.id.myOrderRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(serverOrderView.getContext(), DividerItemDecoration.VERTICAL));
 
@@ -63,6 +64,18 @@ public class ServerOrderFragment extends Fragment {
 
     private void setUpRecycler(String role, String staffMember){
         Query query = db.collection("Orders").whereEqualTo("staffMember", staffMember).orderBy("tableNo", Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().isEmpty()){
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>().setQuery(query, Order.class).build();
         adapter = new orderAdapter(options, role, staffMember);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

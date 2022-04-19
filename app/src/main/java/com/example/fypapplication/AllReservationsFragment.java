@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +38,7 @@ public class AllReservationsFragment extends Fragment {
     private allReservationsAdapter adapter;
     private FirebaseFirestore db;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private TextView emptyMessage;
     private Map<String, Object> data;
     private final String TAG = "TAG";
 
@@ -48,6 +50,7 @@ public class AllReservationsFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         mRecyclerView = allResoView.findViewById(R.id.allReservationsRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(allResoView.getContext(), DividerItemDecoration.VERTICAL));
+        emptyMessage = allResoView.findViewById(R.id.allReservationsEmptyMessage);
         clearOldResos();
         setUpRecycler();
         return allResoView;
@@ -55,6 +58,18 @@ public class AllReservationsFragment extends Fragment {
 
     private void setUpRecycler(){
         Query query = db.collection("Reservations").orderBy("date", Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().isEmpty()){
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         FirestoreRecyclerOptions<Reservation> options = new FirestoreRecyclerOptions.Builder<Reservation>().setQuery(query, Reservation.class).build();
         adapter = new allReservationsAdapter(options);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

@@ -58,6 +58,7 @@ public class OrderInfoFragment extends Fragment {
     private StaggeredGridLayoutManager currentRecyclerStaggeredGridLayoutManager, newItemsStaggeredGridLayoutManager;
     private ArrayList<String> totals = new ArrayList<>();
     private final String TAG = "TAG";
+    private TextView emptyMessage;
 
 
     @Nullable
@@ -84,6 +85,8 @@ public class OrderInfoFragment extends Fragment {
 
         tableNo.setText(tableNumber);
         updateOrderTotal.setText(totalFromBundle);
+
+        emptyMessage = orderInfoView.findViewById(R.id.newItemsEmptyMessage);
 
         currentOrder = orderInfoView.findViewById(R.id.currentOrderRecycler);
         currentOrder.addItemDecoration(new DividerItemDecoration(orderInfoView.getContext(), DividerItemDecoration.VERTICAL));
@@ -196,6 +199,18 @@ public class OrderInfoFragment extends Fragment {
 
     private void setUpNewItemsRecycler(TextView total, String previousTotal){
         Query query = db.collection("Cart").orderBy("type", Query.Direction.DESCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().isEmpty()){
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         FirestoreRecyclerOptions<MenuItem> options = new FirestoreRecyclerOptions.Builder<MenuItem>().setQuery(query, MenuItem.class).build();
         newOrderAdapter = new newOrderAdapter(options, total, previousTotal);
         newItemsStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

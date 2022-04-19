@@ -10,14 +10,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class WaitingListFragment extends Fragment {
@@ -27,6 +32,8 @@ public class WaitingListFragment extends Fragment {
     private waitingListAdapter adapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private FirebaseFirestore db;
+    private TextView emptyMessage;
+    private final String TAG = "TAG";
 
     @Nullable
     @Override
@@ -36,6 +43,7 @@ public class WaitingListFragment extends Fragment {
 
         waitingListRecycler = waitingListView.findViewById(R.id.waitingListRecycler);
         waitingListRecycler.addItemDecoration(new DividerItemDecoration(waitingListView.getContext(), DividerItemDecoration.VERTICAL));
+        emptyMessage = waitingListView.findViewById(R.id.waitingListEmptyMessage);
         setUpRecycler();
 
         addToWaitingList = waitingListView.findViewById(R.id.addToWaitingList);
@@ -52,6 +60,18 @@ public class WaitingListFragment extends Fragment {
 
     private void setUpRecycler(){
         Query query = db.collection("WaitingList").orderBy("waitTime", Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().isEmpty()){
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         FirestoreRecyclerOptions<WaitingList> options = new FirestoreRecyclerOptions.Builder<WaitingList>().setQuery(query, WaitingList.class).build();
         adapter = new waitingListAdapter(options);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);

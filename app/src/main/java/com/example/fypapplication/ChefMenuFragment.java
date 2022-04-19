@@ -119,6 +119,10 @@ public class ChefMenuFragment extends Fragment {
         if(dessertAdapter != null){
             dessertAdapter.startListening();
         }
+
+        if(kidAdapter != null){
+            kidAdapter.startListening();
+        }
     }
 
     @Override
@@ -138,6 +142,10 @@ public class ChefMenuFragment extends Fragment {
 
         if(dessertAdapter != null){
             dessertAdapter.stopListening();
+        }
+
+        if(kidAdapter != null){
+            kidAdapter.stopListening();
         }
     }
 
