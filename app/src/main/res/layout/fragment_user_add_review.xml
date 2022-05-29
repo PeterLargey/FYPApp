@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserAddReviewFragment">
 
@@ -10,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create New Review"
-        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColor="@color/black"
@@ -22,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="105dp"
         app:startIconDrawable="@drawable/ic_baseline_add_box_24"
         app:startIconTint="@color/black"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -39,35 +41,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/ratingInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginTop="170dp"-->
-<!--        app:startIconDrawable="@drawable/ic_baseline_star_24"-->
-<!--        app:startIconTint="@color/black"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
-
-<!--        <EditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:inputType="textPersonName"-->
-<!--            android:id="@+id/newReviewRating"-->
-<!--            android:hint="Enter Rating i.e 10/10"-->
-<!--            android:textColorHint="@color/black">-->
-
-<!--        </EditText>-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/descInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="180dp"
         app:startIconDrawable="@drawable/ic_baseline_reviews_24"
         app:startIconTint="@color/black"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -88,15 +68,16 @@
         android:id="@+id/reviewRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="265dp"
-        android:layout_marginLeft="20dp"/>
+        android:progressTint="#e4aa1b"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="280dp" />
 
     <Button
         android:id="@+id/createReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Leave your Review"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="380dp"
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"/>
 

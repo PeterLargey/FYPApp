@@ -1,5 +1,7 @@
 package com.example.fypapplication;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ public class addMenuItemAdapter extends FirestoreRecyclerAdapter<MenuItem, addMe
 
     public addMenuItemAdapter(@NonNull FirestoreRecyclerOptions<MenuItem> options){super(options);}
 
+    @SuppressLint("Range")
     @Override
     protected void onBindViewHolder(@NonNull AddItemViewHolder holder, int position, @NonNull MenuItem model) {
         ImageView addButton = holder.itemView.findViewById(R.id.addMenuItem);

@@ -40,6 +40,7 @@ public class CalorieBreakdown extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calorie_breakdown);
+        getSupportActionBar().setTitle("Nutrient Breakdown");
         mQueue = Volley.newRequestQueue(this);
 
         data = getIntent();
@@ -62,11 +63,7 @@ public class CalorieBreakdown extends AppCompatActivity {
         desc.setText(itemDesc);
 
         String apiKey = "1T1UW7WJL7YB9qxTGgC30Q==qxkq7426qvRwyUWt";
-//        if(itemName.equalsIgnoreCase("Surf & Turf")){
-//            getItemBreakdown(apiKey, itemDesc);
-//        } else{
-//            getItemBreakdown(apiKey, itemName);
-//        }
+
         StringBuilder ingredientString = new StringBuilder("");
         for(Ingredients i : ingredients){
             String formattedIngredient = i.getAmount() + " " + i.getName() + " ";

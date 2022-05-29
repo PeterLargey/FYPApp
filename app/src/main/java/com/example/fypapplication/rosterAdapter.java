@@ -1,5 +1,7 @@
 package com.example.fypapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class rosterAdapter extends FirestoreRecyclerAdapter<Roster, rosterAdapter.RosterViewHolder> {
 
+    private AlertDialog.Builder builder;
+
     public rosterAdapter(@NonNull FirestoreRecyclerOptions<Roster> options) {
         super(options);
     }
@@ -39,17 +43,32 @@ public class rosterAdapter extends FirestoreRecyclerAdapter<Roster, rosterAdapte
             public void onClick(View view) {
                 final String TAG = "TAG";
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference docRef = db.collection("Roster").document(docId);
-                docRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Delete this Employee from the Roster?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DocumentReference docRef = db.collection("Roster").document(docId);
+                                docRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Log.d(TAG, "Document " + docId + " removed from roster");
+                                        } else {
+                                            Log.d(TAG, "Document " + docId + "was not removed from roster");
+                                        }
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Log.d(TAG, "Document " + docId + " removed from roster");
-                        } else {
-                            Log.d(TAG, "Document " + docId + "was not removed from roster");
-                        }
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
 
             }
         });

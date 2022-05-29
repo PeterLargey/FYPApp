@@ -136,6 +136,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text|textMultiLine"
                         android:lines="6"
+                        android:textColorHint="@color/black"
                         android:hint="Update Note"
                         android:gravity="top|left"
                         />

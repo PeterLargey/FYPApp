@@ -3,18 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".CurrentReservationsFragment">
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:paddingBottom="70dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Today's Reservations"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -31,7 +43,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/currentReservationsRecycler"
                 android:scrollbars="vertical">
 
@@ -41,7 +53,7 @@
                 android:id="@+id/emptyMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No current reservations"
+                android:text="No Current Reservations"
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="40dp"
                 android:textColor="@color/black"

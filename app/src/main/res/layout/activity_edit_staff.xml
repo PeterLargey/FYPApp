@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:scrollbars="none"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp">
 
@@ -23,11 +24,11 @@
             <TextView
                 android:text="Edit Staff Info"
                 android:textColor="@color/black"
-                android:textSize="28sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textAlignment="center"/>

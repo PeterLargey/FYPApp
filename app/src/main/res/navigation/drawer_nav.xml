@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/addStaff"
         android:name="com.example.fypapplication.CreateStaffFragment"
-        android:label="Create Staff"
+        android:label="Create Staff Account"
         tools:layout="@layout/fragment_create_user">
         <argument
             android:name="role"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/viewStaff"
         android:name="com.example.fypapplication.DisplayStaffFragment"
-        android:label="Display Staff"
+        android:label="All Staff Accounts"
         tools:layout="@layout/fragment_display_users" />
     <fragment
         android:id="@+id/editMenu"

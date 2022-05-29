@@ -27,6 +27,7 @@ public class ServerOrderDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
+        getSupportActionBar().setTitle("Edit Order");
         data = getIntent();
         List<MenuItem> items;
         items = new ArrayList<>();

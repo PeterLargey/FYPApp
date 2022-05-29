@@ -38,7 +38,7 @@ public class CurrentRoster extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_roster);
-
+        getSupportActionBar().setTitle("Current Roster");
         db = FirebaseFirestore.getInstance();
         data = getIntent();
         date = data.getStringExtra("date");

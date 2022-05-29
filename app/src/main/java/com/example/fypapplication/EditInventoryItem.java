@@ -34,6 +34,7 @@ public class EditInventoryItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_inventory_item);
+        getSupportActionBar().setTitle("Edit Inventory Item");
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 

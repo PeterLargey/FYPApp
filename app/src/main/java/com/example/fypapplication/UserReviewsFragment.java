@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -29,6 +30,7 @@ public class UserReviewsFragment extends Fragment {
         View reviewsView = inflater.inflate(R.layout.fragment_user_reviews, container,false);
         db = FirebaseFirestore.getInstance();
         mRecyclerView = reviewsView.findViewById(R.id.customerReviewsRecycler);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(reviewsView.getContext(), DividerItemDecoration.VERTICAL));
         setUpRecycler();
         return reviewsView;
     }

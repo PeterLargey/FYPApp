@@ -68,7 +68,7 @@ public class CurrentReservationsFragment extends Fragment {
         dateForDB.append(day + " " + formattedMonth + " " + year);
         searchDate = String.valueOf(dateForDB);
         Log.d(TAG, searchDate);
-        currentDate.setText(searchDate);
+        currentDate.setText("Date: " + searchDate);
         setUpRecycler();
         return currentResoView;
     }
@@ -132,9 +132,7 @@ public class CurrentReservationsFragment extends Fragment {
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(adapter);
-//        if(mRecyclerView.getChildCount() != 0){
-//            emptyMessage.setVisibility(View.INVISIBLE);
-//        }
+
     }
 
     @Override

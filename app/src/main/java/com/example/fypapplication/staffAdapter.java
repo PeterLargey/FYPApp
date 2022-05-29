@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Locale;
+
 public class staffAdapter extends FirestoreRecyclerAdapter<Staff, staffAdapter.StaffViewHolder>{
 
     private AlertDialog.Builder builder;
@@ -34,7 +36,12 @@ public class staffAdapter extends FirestoreRecyclerAdapter<Staff, staffAdapter.S
         ImageView deleteButton = holder.itemView.findViewById(R.id.deleteStaffMember);
 
         holder.name.setText(model.getFullName());
-        holder.role.setText(model.getRole());
+        String role = model.getRole();
+        String firstLetter = role.substring(0,1);
+        firstLetter = firstLetter.toUpperCase();
+        String remainingLetters = role.substring(1, role.length());
+        role = firstLetter + remainingLetters;
+        holder.role.setText(role);
 
         String docId = getSnapshots().getSnapshot(position).getId();
 

@@ -32,6 +32,7 @@ public class ManagerOrderDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_order_details);
+        getSupportActionBar().setTitle("Edit Order");
         db = FirebaseFirestore.getInstance();
         data = getIntent();
         List<MenuItem> items;

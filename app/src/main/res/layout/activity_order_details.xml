@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".ServerOrderDetails">
 
     <com.google.android.material.tabs.TabLayout
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:id="@+id/orderDetailsTabLayout"
+        android:background="@android:color/transparent"
         app:tabMode="scrollable"
         app:tabContentStart="20dp"
         app:tabPaddingEnd="30dp"

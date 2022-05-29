@@ -44,6 +44,7 @@ public class EditRosterItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_roster_item);
+        getSupportActionBar().setTitle("Edit Employee Roster Info");
         db = FirebaseFirestore.getInstance();
         data = getIntent();
         staffName = data.getStringExtra("name");

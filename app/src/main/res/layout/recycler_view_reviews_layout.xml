@@ -5,17 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="15dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        app:cardMaxElevation="5dp"
-        app:cardCornerRadius="5dp"
-        android:id="@+id/reviewCard">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:id="@+id/review"
             android:orientation="vertical">
 
@@ -34,8 +27,6 @@
                     android:textStyle="bold"/>
 
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -64,15 +55,8 @@
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/reviewRatings"/>
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:id="@+id/reviewRatings"-->
-<!--                    android:text="This is the rating"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textStyle="bold"/>-->
+                    android:id="@+id/reviewRatings"
+                    android:progressTint="#e4aa1b"/>
 
             </LinearLayout>
 
@@ -88,12 +72,11 @@
                     android:id="@+id/reviewUsername"
                     android:text="This is the username"
                     android:textColor="@color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

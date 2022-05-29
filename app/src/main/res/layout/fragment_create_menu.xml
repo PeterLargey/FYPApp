@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CreateMenuFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Menu Item"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="25dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/newTypeInput"
@@ -12,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="75dp"
         android:hint="Select Type"
         app:startIconDrawable="@drawable/ic_baseline_title_24"
         app:startIconTint="@color/black"
@@ -31,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="140dp"
         app:startIconDrawable="@drawable/ic_baseline_add_box_24"
         app:startIconTint="@color/black"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -53,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="205dp"
         app:startIconDrawable="@drawable/ic_baseline_description_24"
         app:startIconTint="@color/black"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -75,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="255dp"
+        android:layout_marginTop="270dp"
         app:startIconDrawable="@drawable/ic_baseline_euro_24"
         app:startIconTint="@color/black"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -96,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Menu Item"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="375dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"/>
 

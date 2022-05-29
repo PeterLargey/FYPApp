@@ -31,6 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class waitingListAdapter extends FirestoreRecyclerAdapter<WaitingList, waitingListAdapter.WaitingViewHolder> {
 
     private AlertDialog.Builder builder;
+    private AlertDialog.Builder deleteButtonBuilder;
     private final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
 
     public waitingListAdapter(@NonNull FirestoreRecyclerOptions<WaitingList> options){super(options);}
@@ -93,20 +94,35 @@ public class waitingListAdapter extends FirestoreRecyclerAdapter<WaitingList, wa
                 String TAG = "TAG";
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                DocumentReference docRef = db.collection("WaitingList").document(docId);
-                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                deleteButtonBuilder = new AlertDialog.Builder(view.getContext());
+                deleteButtonBuilder.setMessage("Do you want to delete this item from the Waiting List?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DocumentReference docRef = db.collection("WaitingList").document(docId);
+                                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "Waiting List Item Deleted");
+                                        Toast.makeText(view.getContext(), "Waiting List Item Deleted", Toast.LENGTH_LONG).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "Waiting List item failed to Delete");
+                                        Toast.makeText(view.getContext(), "Item failed to Delete", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "Waiting List Item Deleted");
-                        Toast.makeText(view.getContext(), "Waiting List Item Deleted", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Waiting List item failed to Delete");
-                        Toast.makeText(view.getContext(), "Item failed to Delete", Toast.LENGTH_LONG).show();
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
+
+                AlertDialog alertDialog = deleteButtonBuilder.create();
+                alertDialog.show();
 
             }
         });

@@ -1,5 +1,7 @@
 package com.example.fypapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class inventoryAdapter extends FirestoreRecyclerAdapter<InventoryItem, inventoryAdapter.InventoryViewHolder> {
 
     private String role;
+    private AlertDialog.Builder builder;
 
     public inventoryAdapter(@NonNull FirestoreRecyclerOptions<InventoryItem> options, String role) {
         super(options);
@@ -52,18 +55,37 @@ public class inventoryAdapter extends FirestoreRecyclerAdapter<InventoryItem, in
             @Override
             public void onClick(View view) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference docRef = db.collection("Inventory").document(docId);
-                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Would you like to delete this inventory item?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                DocumentReference docRef = db.collection("Inventory").document(docId);
+                                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d("TAG", "Item deleted from the Inventory database");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("TAG", "Item failed to delete from the Inventory database");
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("TAG", "Item deleted from the Inventory database");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG", "Item failed to delete from the Inventory database");
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
             }
         });
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,6 +61,7 @@ public class CardPayment extends AppCompatActivity {
     private OkHttpClient httpClient = new OkHttpClient();
     private String paymentIntentClientSecret;
     private Stripe stripe;
+    private TextView paymentTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,9 @@ public class CardPayment extends AppCompatActivity {
         role = data.getStringExtra("role");
         docId = data.getStringExtra("docId");
         timestamp = data.getStringExtra("timestamp");
+
+        paymentTotal = findViewById(R.id.cardPaymentTotal);
+        paymentTotal.append(total);
 
         stripe = new Stripe(
                 getApplicationContext(),

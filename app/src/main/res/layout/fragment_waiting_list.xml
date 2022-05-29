@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".WaitingListFragment">
 
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/waitingListRecycler"
+        android:paddingBottom="70dp"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -39,7 +41,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/design_default_color_primary_dark"
+            android:backgroundTint="#46b96f"
             android:src="@drawable/ic_baseline_add_24"
             app:tint="@color/white"
             android:layout_gravity="bottom|center"

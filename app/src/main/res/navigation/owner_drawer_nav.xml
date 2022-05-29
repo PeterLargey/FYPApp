@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/ownerCreateStaff"
         android:name="com.example.fypapplication.OwnerCreateStaffFragment"
-        android:label="Create Staff"
+        android:label="Create Staff Account"
         tools:layout="@layout/fragment_owner_create_staff"/>
     <fragment
         android:id="@+id/viewInventory"

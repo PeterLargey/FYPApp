@@ -1,5 +1,7 @@
 package com.example.fypapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class allReservationsAdapter extends FirestoreRecyclerAdapter<Reservation, allReservationsAdapter.AllResosViewHolder> {
+
+    private AlertDialog.Builder builder;
 
     public allReservationsAdapter(@NonNull FirestoreRecyclerOptions<Reservation> options){super(options);}
 
@@ -54,20 +58,35 @@ public class allReservationsAdapter extends FirestoreRecyclerAdapter<Reservation
                 String TAG = "TAG";
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                DocumentReference docRef = db.collection("Reservations").document(docId);
-                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Would you like to delete this reservation?").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DocumentReference docRef = db.collection("Reservations").document(docId);
+                                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "Reservation Deleted");
+                                        Toast.makeText(view.getContext(), "Reservation Deleted", Toast.LENGTH_LONG).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "Reservation failed to Delete");
+                                        Toast.makeText(view.getContext(), "Reservation failed to Delete", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "Reservation Deleted");
-                        Toast.makeText(view.getContext(), "Reservation Deleted", Toast.LENGTH_LONG).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Reservation failed to Delete");
-                        Toast.makeText(view.getContext(), "Reservation failed to Delete", Toast.LENGTH_LONG).show();
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
     }

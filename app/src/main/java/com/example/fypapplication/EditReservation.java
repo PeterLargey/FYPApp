@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -47,7 +49,7 @@ public class EditReservation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_reservation);
-        getSupportActionBar().setTitle("Host Home Screen");
+        getSupportActionBar().setTitle("Edit Reservation");
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 
@@ -211,5 +213,21 @@ public class EditReservation extends AppCompatActivity {
                 Log.d(TAG, "Failed, reservation failed to update in the database");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_staff_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.backToStaffMain){
+            Intent i = new Intent(EditReservation.this, HostMain.class);
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

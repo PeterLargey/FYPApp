@@ -4,23 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".ManagerOrderDetails">
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Manager Order Details"-->
-<!--        android:textSize="18sp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginTop="300dp"-->
-<!--        />-->
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:id="@+id/managerOrderDetailsTabLayout"
+        android:background="@android:color/transparent"
         app:tabMode="scrollable"
         app:tabContentStart="20dp"
         app:tabPaddingEnd="30dp"

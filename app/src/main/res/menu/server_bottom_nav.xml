@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_baseline_table_restaurant_24"/>
 
     <item android:id="@+id/takePayment"
-        android:title="Payment"
+        android:title="All Orders"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_restaurant_24"/>
 

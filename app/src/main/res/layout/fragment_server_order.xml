@@ -3,30 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".ServerOrderFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:id="@+id/myOrderRecycler"
-        android:scrollbars="vertical">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/myOrdersEmptyMessage"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Current Orders"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/black"
-        android:visibility="invisible"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textSize="18sp" />
+        android:scrollbars="none"
+        android:paddingBottom="70dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Orders"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:textAlignment="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:id="@+id/myOrderRecycler"
+                android:scrollbars="vertical">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/myOrdersEmptyMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Current Orders"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/black"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 
 </FrameLayout>

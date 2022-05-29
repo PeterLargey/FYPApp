@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".CalorieBreakdown">
 
     <androidx.core.widget.NestedScrollView
@@ -28,9 +29,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Item Name: "
+                    android:text="Menu Item: "
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_weight="1"
                     />
@@ -40,10 +41,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Item name"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textColor="@color/black"
-                    android:layout_weight="0.35"/>
+                    android:layout_weight="0.45"/>
             </LinearLayout>
 
             <LinearLayout
@@ -55,9 +55,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Item Desc: "
+                    android:text="Description: "
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="5dp"
                     />
@@ -67,155 +67,165 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Item desc"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textColor="@color/black" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Macro Nutrients"
+                android:text="Nutrients"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
 
-                <TextView
+                <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Calories: "
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_border"
+                    android:stretchColumns="1"
+                    android:layout_marginRight="95dp">
 
-                <TextView
-                    android:id="@+id/itemCalories"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_weight="0.25"/>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Calories"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_column="1"
+                            android:paddingStart="15dp"
+                            android:background="@drawable/cell_border"
+                            />
+
+                        <TextView
+                            android:id="@+id/itemCalories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:gravity="right"
+                            android:background="@drawable/cell_border"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Protein "
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_column="1"
+                            android:paddingStart="15dp"
+                            android:background="@drawable/cell_border"
+                            />
+
+                        <TextView
+                            android:id="@+id/itemProtein"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/cell_border"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="15dp"
+                            android:textAlignment="center"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Carbs "
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_column="1"
+                            android:paddingStart="15dp"
+                            android:background="@drawable/cell_border"
+                            />
+
+                        <TextView
+                            android:id="@+id/itemCarbs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/cell_border"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="15dp"
+                            android:textAlignment="center"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sugar "
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_column="1"
+                            android:paddingStart="15dp"
+                            android:background="@drawable/cell_border"
+                            />
+
+                        <TextView
+                            android:id="@+id/itemSugar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/cell_border"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="15dp"
+                            android:textAlignment="center"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fat "
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_column="1"
+                            android:paddingStart="15dp"
+                            android:background="@drawable/cell_border"
+                            />
+
+                        <TextView
+                            android:id="@+id/itemFat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/cell_border"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="15dp"
+                            android:textAlignment="center"/>
+                    </TableRow>
+
+                </TableLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Protein: "
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/itemProtein"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_weight="0.25"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Carbs: "
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/itemCarbs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_weight="0.25"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sugar: "
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/itemSugar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_weight="0.25"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fat: "
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
-
-                <TextView
-                    android:id="@+id/itemFat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_weight="0.25"/>
-            </LinearLayout>
 
         </LinearLayout>
 
