@@ -29,7 +29,7 @@ public class EditMenuItem extends AppCompatActivity {
     private static final String TAG = "TAG";
     private FirebaseFirestore db;
     private EditText name, desc, price;
-    private Button button;
+    private Button button, delete;
     private List<Ingredients> ingredients = new ArrayList<>();
 
     @Override
@@ -46,6 +46,7 @@ public class EditMenuItem extends AppCompatActivity {
         price = findViewById(R.id.editMenuItemPrice);
 
         button = findViewById(R.id.updateMenuItem);
+        delete = findViewById(R.id.deleteMenuItem);
 
         String itemName = data.getStringExtra("name");
         String itemDesc = data.getStringExtra("desc");
@@ -94,6 +95,28 @@ public class EditMenuItem extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference docRef = db.collection("Menu").document(docId);
+                docRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: menu item has been deleted " + docId);
+                        Toast.makeText(getApplicationContext(), "Menu Item Deleted", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(EditMenuItem.this, ManagerMain.class);
+                        startActivity(i);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Failed: menu item has not been deleted. Check document: " + docId);
+                        Toast.makeText(getApplicationContext(), "Delete Failed", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
