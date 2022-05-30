@@ -265,7 +265,7 @@ public class ProfitAndLossFragment extends Fragment {
         double costAndSalesCombined = cost + sales;
 
         double result = sales - cost;
-        profitAndLossResult.setText("€" + String.valueOf(result));
+        profitAndLossResult.setText("€" + String.format("%.2f",result));
         profitAndLossResult.setTextColor(Color.BLACK);
         if(result < 0){
             profitOrLoss.setText("Loss: ");
@@ -308,7 +308,7 @@ public class ProfitAndLossFragment extends Fragment {
         double mealTotal = Double.parseDouble(mealCost);
 
         double total = staffTotal + mealTotal;
-        totalCosts.setText("€" + String.valueOf(total));
+        totalCosts.setText("€" + String.format("%.2f", total));
         totalCosts.setTextColor(Color.BLACK);
 
         loadPieChartData(totalCosts.getText().toString(), totalSales.getText().toString(), selectedDate);
@@ -322,7 +322,7 @@ public class ProfitAndLossFragment extends Fragment {
             double amount = Double.parseDouble(split[1]);
             total = total + amount;
         }
-        totalSales.setText("€" + String.valueOf(total));
+        totalSales.setText("€" + String.format("%.2f", total));
         totalSales.setTextColor(Color.BLACK);
     }
 
@@ -333,7 +333,7 @@ public class ProfitAndLossFragment extends Fragment {
             total = total + amount;
         }
         Log.d(TAG, "Meal Costs: " + total);
-        mealCosts.setText(String.valueOf(total));
+        mealCosts.setText(String.format("%.2f", total));
     }
 
     private String formatDate(String dateString) {
@@ -532,7 +532,7 @@ public class ProfitAndLossFragment extends Fragment {
             total = total + amount;
         }
         Log.d(TAG, "Staff Costs: " + total);
-        staffCosts.setText(String.valueOf(total));
+        staffCosts.setText(String.format("%.2f", total));
 
         setTotalCosts(staffCosts.getText().toString(), mealCosts.getText().toString());
     }

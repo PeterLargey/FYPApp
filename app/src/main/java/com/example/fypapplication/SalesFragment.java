@@ -209,7 +209,7 @@ public class SalesFragment extends Fragment {
             double value = Double.parseDouble(split[1]);
             total = total + value;
         }
-        totalSales.setText("€" + String.valueOf(total));
+        totalSales.setText("€" + String.format("%.2f", total));
         totalSales.setTextColor(Color.BLACK);
     }
 
@@ -843,11 +843,11 @@ public class SalesFragment extends Fragment {
         Log.d(TAG, "Before Seven Frequency: " + beforeSeven + " Before Seven Total: " + totalBeforeSeven);
         Log.d(TAG, "After Seven Frequency: " + afterSeven + " After Seven Total: " + totalAfterSeven);
 
-        before4pm.setText("€" + String.valueOf(totalBeforeFour));
+        before4pm.setText("€" + String.format("%.2f", totalBeforeFour));
         before4pm.setTextColor(Color.BLACK);
-        between4pmAnd7pm.setText("€" + String.valueOf(totalBeforeSeven));
+        between4pmAnd7pm.setText("€" + String.format("%.2f", totalBeforeSeven));
         between4pmAnd7pm.setTextColor(Color.BLACK);
-        after7pm.setText("€" + String.valueOf(totalAfterSeven));
+        after7pm.setText("€" + String.format("%.2f", totalAfterSeven));
         after7pm.setTextColor(Color.BLACK);
 
         float saleBeforeFour = calculatePercentage(beforeFour, totalFrequency);
