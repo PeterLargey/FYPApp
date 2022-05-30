@@ -26,6 +26,8 @@ public class AddToWaitingList extends AppCompatActivity {
     private FirebaseFirestore db;
     private EditText name, guests, phoneNumber, waitTime;
     private Button submit;
+    private String role;
+    private Intent data;
     private final String TAG = "TAG";
 
     @Override
@@ -34,6 +36,8 @@ public class AddToWaitingList extends AppCompatActivity {
         setContentView(R.layout.activity_add_to_waiting_list);
         getSupportActionBar().setTitle("Add Customer to Waiting List");
         db = FirebaseFirestore.getInstance();
+        data = getIntent();
+        role = data.getStringExtra("role");
 
         name = findViewById(R.id.waitingListName);
         guests = findViewById(R.id.waitingListGuests);
@@ -56,6 +60,7 @@ public class AddToWaitingList extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Item added to the Waiting List", Toast.LENGTH_LONG).show();
                     inputDataIntoWaitingList(customerName, numberOfGuests, number, estimateWaitTime);
                     Intent i = new Intent(AddToWaitingList.this, HostMain.class);
+                    i.putExtra("role", role);
                     startActivity(i);
                 }
             }
@@ -95,6 +100,7 @@ public class AddToWaitingList extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.backToStaffMain){
             Intent i = new Intent(AddToWaitingList.this, HostMain.class);
+            i.putExtra("role", role);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);

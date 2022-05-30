@@ -49,6 +49,7 @@ public class orderAdapter extends FirestoreRecyclerAdapter<Order, orderAdapter.O
                 i.putExtra("note", model.getNote());
                 i.putExtra("role", role);
                 i.putExtra("staffMember", staffMember);
+                i.putExtra("staffName", model.getStaffName());
 
                 view.getContext().startActivity(i);
             }

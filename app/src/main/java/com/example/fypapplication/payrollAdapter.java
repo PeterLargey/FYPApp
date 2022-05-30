@@ -34,7 +34,12 @@ public class payrollAdapter extends FirestoreRecyclerAdapter<Staff, payrollAdapt
         ImageView deleteButton = holder.itemView.findViewById(R.id.ownerDeleteStaffMember);
 
         holder.name.setText(model.getFullName());
-        holder.role.setText(model.getRole());
+        String role = model.getRole();
+        String firstLetter = role.substring(0,1);
+        firstLetter = firstLetter.toUpperCase();
+        String remainingLetters = role.substring(1, role.length());
+        role = firstLetter + remainingLetters;
+        holder.role.setText(role);
         holder.wage.setText("€" + model.getWage());
 
         String docId = getSnapshots().getSnapshot(position).getId();

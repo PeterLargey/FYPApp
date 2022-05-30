@@ -77,6 +77,7 @@ public class EditInventoryItem extends AppCompatActivity {
                     } else {
                         i = new Intent(EditInventoryItem.this, OwnerMain.class);
                     }
+
                     startActivity(i);
 
                 }

@@ -39,7 +39,7 @@ public class EditReservation extends AppCompatActivity {
     private TextView dateTxt, timeTxt;
     private EditText nameTxt, guests;
     private Button editReservation;
-    private String docId;
+    private String docId, role, staffMember;
     private int hour, minute;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
@@ -53,6 +53,8 @@ public class EditReservation extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         data = getIntent();
 
+        role = data.getStringExtra("role");
+        staffMember = data.getStringExtra("staffMember");
         docId = data.getStringExtra("docId");
         String name = data.getStringExtra("name");
         String date = data.getStringExtra("date");
@@ -98,8 +100,17 @@ public class EditReservation extends AppCompatActivity {
 
                 Toast.makeText(view.getContext(), "Reservation Updated", Toast.LENGTH_LONG).show();
                 updateReservationData(updatedName, updatedDate, updatedTime, updatedNumberOfGuests);
-                Intent i = new Intent(EditReservation.this, HostMain.class);
+                Intent i;
+                if(role.equalsIgnoreCase("host")){
+                    i = new Intent(EditReservation.this, HostMain.class);
+                    i.putExtra("role", role);
+                } else {
+                    i = new Intent(EditReservation.this, ManagerMain.class);
+                    i.putExtra("role", role);
+                    i.putExtra("staffMember", staffMember);
+                }
                 startActivity(i);
+
             }
         });
 
@@ -152,7 +163,38 @@ public class EditReservation extends AppCompatActivity {
     }
 
     private String makeDateString(int year, int month, int day) {
-        return day +  " " +  getMonthFormat(month) + " " + year;
+        return formatDay(day) +  " " +  getMonthFormat(month) + " " + year;
+    }
+
+    private String formatDay(int day) {
+        if(day == 1){
+            return "01";
+        }
+        if(day == 2){
+            return "02";
+        }
+        if(day == 3){
+            return "03";
+        }
+        if(day == 4){
+            return "04";
+        }
+        if(day == 5){
+            return "05";
+        }
+        if(day == 6){
+            return "06";
+        }
+        if(day == 7){
+            return "07";
+        }
+        if(day == 8){
+            return "08";
+        }
+        if(day == 9){
+            return "09";
+        }
+        return String.valueOf(day);
     }
 
     private String getMonthFormat(int month){
@@ -225,8 +267,17 @@ public class EditReservation extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.backToStaffMain){
-            Intent i = new Intent(EditReservation.this, HostMain.class);
+            Intent i;
+            if(role.equalsIgnoreCase("host")){
+                i = new Intent(EditReservation.this, HostMain.class);
+                i.putExtra("role", role);
+            } else {
+                i = new Intent(EditReservation.this, ManagerMain.class);
+                i.putExtra("role", role);
+                i.putExtra("staffMember", staffMember);
+            }
             startActivity(i);
+
         }
         return super.onOptionsItemSelected(item);
     }

@@ -44,12 +44,12 @@ public class CurrentInventoryFragment extends Fragment {
         mRecyclerView = currentInventoryView.findViewById(R.id.currentInventoryRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(currentInventoryView.getContext(), DividerItemDecoration.VERTICAL));
         emptyMessage = currentInventoryView.findViewById(R.id.inventoryEmptyMessage);
-        setUpRecycler();
+        setUpRecycler(role);
 
         return currentInventoryView;
     }
 
-    private void setUpRecycler() {
+    private void setUpRecycler(String role) {
         Query query = db.collection("Inventory").orderBy("name", Query.Direction.ASCENDING);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

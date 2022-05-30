@@ -26,7 +26,7 @@ public class ManagerOrderDetails extends AppCompatActivity {
     private TabLayout tabLayout;
     private FirebaseFirestore db;
     private final String TAG = "TAG";
-    private String staffMember, role;
+    private String staffMember, role, staffName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class ManagerOrderDetails extends AppCompatActivity {
         String tableNumber = data.getStringExtra("tableNo");
         staffMember = data.getStringExtra("staffMember");
         role = data.getStringExtra("role");
+        staffName = data.getStringExtra("staffName");
         items = (ArrayList) data.getParcelableArrayListExtra("items");
         String note = data.getStringExtra("note");
         Log.d(TAG, items.toString());
@@ -53,6 +54,7 @@ public class ManagerOrderDetails extends AppCompatActivity {
         bundle.putParcelableArrayList("items", data.getParcelableArrayListExtra("items"));
         bundle.putString("note", note);
         bundle.putString("role",role);
+        bundle.putString("staffName", staffName);
 
         tabLayout = findViewById(R.id.managerOrderDetailsTabLayout);
         Fragment startingFragment = new ManagerOrderInfoFragment();

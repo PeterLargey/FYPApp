@@ -49,6 +49,7 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putExtra("staffMember", staffMember);
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
                     i.putExtra("note", model.getNote());
+                    i.putExtra("staffName", model.getStaffName());
 
                     view.getContext().startActivity(i);
 
@@ -60,10 +61,10 @@ public class allOrdersAdapter extends FirestoreRecyclerAdapter<Order, allOrdersA
                     i.putExtra("tableNo", model.getTableNo());
                     i.putExtra("total", model.getTotal());
                     i.putParcelableArrayListExtra("items", (ArrayList) itemList);
-//                    i.putExtra("staffMember", model.getStaffMember());
                     i.putExtra("staffMember", staffMember);
                     i.putExtra("role", role);
                     i.putExtra("note", model.getNote());
+                    i.putExtra("staffName", model.getStaffName());
 
                     view.getContext().startActivity(i);
                 }

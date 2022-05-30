@@ -38,7 +38,12 @@
         android:id="@+id/viewInventory"
         android:name="com.example.fypapplication.CurrentInventoryFragment"
         android:label="Current Inventory"
-        tools:layout="@layout/fragment_current_inventory"/>
+        tools:layout="@layout/fragment_current_inventory">
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="owner" />
+    </fragment>
     <fragment
         android:id="@+id/viewDifference"
         android:name="com.example.fypapplication.ProfitAndLossFragment"
@@ -48,7 +53,12 @@
         android:id="@+id/addToInventory"
         android:name="com.example.fypapplication.AddToInventoryFragment"
         android:label="Add Inventory Item"
-        tools:layout="@layout/fragment_add_to_inventory"/>
+        tools:layout="@layout/fragment_add_to_inventory">
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="owner" />
+    </fragment>
 
 
 </navigation>

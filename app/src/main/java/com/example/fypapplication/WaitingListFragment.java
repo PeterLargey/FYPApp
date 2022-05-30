@@ -33,6 +33,7 @@ public class WaitingListFragment extends Fragment {
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private FirebaseFirestore db;
     private TextView emptyMessage;
+    private String role;
     private final String TAG = "TAG";
 
     @Nullable
@@ -40,6 +41,10 @@ public class WaitingListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View waitingListView = inflater.inflate(R.layout.fragment_waiting_list, container, false);
         db = FirebaseFirestore.getInstance();
+
+        if(getArguments() != null){
+            role = getArguments().getString("role");
+        }
 
         waitingListRecycler = waitingListView.findViewById(R.id.waitingListRecycler);
         waitingListRecycler.addItemDecoration(new DividerItemDecoration(waitingListView.getContext(), DividerItemDecoration.VERTICAL));
@@ -51,6 +56,7 @@ public class WaitingListFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(waitingListView.getContext(), AddToWaitingList.class);
+                i.putExtra("role", role);
                 startActivity(i);
             }
         });

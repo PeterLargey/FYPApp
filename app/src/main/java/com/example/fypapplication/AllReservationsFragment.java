@@ -41,6 +41,7 @@ public class AllReservationsFragment extends Fragment {
     private TextView emptyMessage;
     private Map<String, Object> data;
     private final String TAG = "TAG";
+    private String role, staffMember;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
@@ -48,15 +49,20 @@ public class AllReservationsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View allResoView = inflater.inflate(R.layout.fragment_all_reservations, container, false);
         db = FirebaseFirestore.getInstance();
+        if(getArguments() != null){
+            role = getArguments().getString("role");
+            staffMember = getArguments().getString("staffMember");
+        }
+
         mRecyclerView = allResoView.findViewById(R.id.allReservationsRecycler);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(allResoView.getContext(), DividerItemDecoration.VERTICAL));
         emptyMessage = allResoView.findViewById(R.id.allReservationsEmptyMessage);
         clearOldResos();
-        setUpRecycler();
+        setUpRecycler(role, staffMember);
         return allResoView;
     }
 
-    private void setUpRecycler(){
+    private void setUpRecycler(String role, String staffMember){
         Query query = db.collection("Reservations").orderBy("date", Query.Direction.ASCENDING);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -71,7 +77,7 @@ public class AllReservationsFragment extends Fragment {
             }
         });
         FirestoreRecyclerOptions<Reservation> options = new FirestoreRecyclerOptions.Builder<Reservation>().setQuery(query, Reservation.class).build();
-        adapter = new allReservationsAdapter(options);
+        adapter = new allReservationsAdapter(options, role, staffMember);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(adapter);
@@ -106,11 +112,45 @@ public class AllReservationsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private LocalDate reformatDate(String date){
         String[] dateSplit = date.split(" ");
+        String day = dateSplit[0];
+        String dayFormat = dayFormat(day);
         String month = dateSplit[1];
         String monthFormat = monthFormat(month);
-        String dateToBeFormatted = dateSplit[2] + "-" + monthFormat + "-" + dateSplit[0];
+        String dateToBeFormatted = dateSplit[2] + "-" + monthFormat + "-" + dayFormat;
 
         return LocalDate.parse(dateToBeFormatted);
+    }
+
+    private String dayFormat(String day) {
+        if(day.equalsIgnoreCase("1")){
+            return "01";
+        }
+        if(day.equalsIgnoreCase("2")){
+            return "02";
+        }
+        if(day.equalsIgnoreCase("3")){
+            return "03";
+        }
+        if(day.equalsIgnoreCase("4")){
+            return "04";
+        }
+        if(day.equalsIgnoreCase("5")){
+            return "05";
+        }
+        if(day.equalsIgnoreCase("6")){
+            return "06";
+        }
+        if(day.equalsIgnoreCase("7")){
+            return "07";
+        }
+        if(day.equalsIgnoreCase("8")){
+            return "08";
+        }
+        if(day.equalsIgnoreCase("9")){
+            return "09";
+        }
+
+        return day;
     }
 
     private String monthFormat(String data){
@@ -151,7 +191,7 @@ public class AllReservationsFragment extends Fragment {
             return "12";
         }
 
-        return "1";
+        return "01";
     }
 
     @Override

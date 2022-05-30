@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,6 +18,8 @@ public class HostMain extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private NavigationBarView bottomNav;
+    private final String TAG = "TAG";
+    private Intent fromLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,19 @@ public class HostMain extends AppCompatActivity {
         getSupportActionBar().setTitle("Host Home Screen");
 
         mAuth = FirebaseAuth.getInstance();
-        getSupportFragmentManager().beginTransaction().replace(R.id.hostFragmentContainer,new CurrentReservationsFragment()).commit();
+        fromLogin = getIntent();
+
+        String role = fromLogin.getStringExtra("role");
+        Log.d(TAG, "Role: " + role);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("role", role);
+
+        Fragment startingFragment = new CurrentReservationsFragment();
+        startingFragment.setArguments(bundle);
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.hostFragmentContainer,startingFragment).commit();
         bottomNav = findViewById(R.id.hostBottomNav);
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -34,15 +49,19 @@ public class HostMain extends AppCompatActivity {
                 switch(menuItem.getItemId()){
                     case(R.id.currentReservations):
                         fragment = new CurrentReservationsFragment();
+                        fragment.setArguments(bundle);
                         break;
                     case(R.id.allReservations):
                         fragment = new AllReservationsFragment();
+                        fragment.setArguments(bundle);
                         break;
                     case(R.id.addReservation):
                         fragment = new AddReservationFragment();
+                        fragment.setArguments(bundle);
                         break;
                     case(R.id.waitingList):
                         fragment = new WaitingListFragment();
+                        fragment.setArguments(bundle);
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.hostFragmentContainer,fragment).commit();

@@ -46,6 +46,7 @@ public class AddToRoster extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_roster);
+        getSupportActionBar().setTitle("Add Employee to Roster");
         db = FirebaseFirestore.getInstance();
         data = getIntent();
         rosterDate = data.getStringExtra("date");

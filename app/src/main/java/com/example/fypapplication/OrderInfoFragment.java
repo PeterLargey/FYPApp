@@ -49,7 +49,7 @@ public class OrderInfoFragment extends Fragment {
     private EditText updateNote;
     private Button updateOrder, proceedToPayment;
     private FirebaseFirestore db;
-    private String docId, totalFromBundle, formattedTotal, tableNumber, staffMember, cartTotal, note, role;
+    private String docId, totalFromBundle, formattedTotal, tableNumber, staffMember, cartTotal, note, role, staffName;
     private List<MenuItem> items;
     private List<MenuItem> additionalItems = new ArrayList<>();
     private List<MenuItem> mergedItems = new ArrayList<>();
@@ -75,6 +75,7 @@ public class OrderInfoFragment extends Fragment {
             role = getArguments().getString("role");
             items = getArguments().getParcelableArrayList("items");
             note = getArguments().getString("note");
+            staffName = getArguments().getString("staffName");
         }
         String[] splitTotal = totalFromBundle.split("€");
         formattedTotal = splitTotal[1];
@@ -134,7 +135,7 @@ public class OrderInfoFragment extends Fragment {
                                 Toast.makeText(view.getContext(), "No Items in Order", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(view.getContext(), "Order Updated", Toast.LENGTH_LONG).show();
-                                updateOrderData(tableNumber, timestamp, staffMember, mergedItems, updateOrderTotal.getText().toString());
+                                updateOrderData(tableNumber, timestamp, staffMember, mergedItems, updateOrderTotal.getText().toString(), updateNote.getText().toString(), staffName);
                                 db.collection("Cart").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -264,7 +265,7 @@ public class OrderInfoFragment extends Fragment {
         return total;
     }
 
-    private void updateOrderData(String tableNo, String timestamp, String username, List<MenuItem> items, String total){
+    private void updateOrderData(String tableNo, String timestamp, String username, List<MenuItem> items, String total, String note, String staffName){
         DocumentReference docRef = db.collection("Orders").document(docId);
         Map<String, Object> updateOrder = new HashMap<>();
         updateOrder.put("tableNo", tableNo);
@@ -272,6 +273,8 @@ public class OrderInfoFragment extends Fragment {
         updateOrder.put("staffMember", username);
         updateOrder.put("items", items);
         updateOrder.put("total", total);
+        updateOrder.put("note", note);
+        updateOrder.put("staffName", staffName);
         docRef.set(updateOrder).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

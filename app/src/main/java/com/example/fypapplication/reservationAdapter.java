@@ -24,8 +24,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class reservationAdapter extends FirestoreRecyclerAdapter<Reservation, reservationAdapter.ResoViewHolder> {
 
     private AlertDialog.Builder builder;
+    private String role;
+    private String staffMember;
 
-    public reservationAdapter(@NonNull FirestoreRecyclerOptions<Reservation> options){super(options);}
+    public reservationAdapter(@NonNull FirestoreRecyclerOptions<Reservation> options, String role, String staffMember){
+        super(options);
+        this.role = role;
+        this.staffMember = staffMember;
+    }
 
     @Override
     protected void onBindViewHolder(@NonNull ResoViewHolder holder, int position, @NonNull Reservation model) {
@@ -42,6 +48,8 @@ public class reservationAdapter extends FirestoreRecyclerAdapter<Reservation, re
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditReservation.class);
+                i.putExtra("role", role);
+                i.putExtra("staffMember", staffMember);
                 i.putExtra("docId", docId);
                 i.putExtra("name", model.getName());
                 i.putExtra("date", model.getDate());

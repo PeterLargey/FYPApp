@@ -51,7 +51,16 @@
         android:id="@+id/viewReservations"
         android:name="com.example.fypapplication.AllReservationsFragment"
         android:label="Reservations"
-        tools:layout="@layout/fragment_all_reservations" />
+        tools:layout="@layout/fragment_all_reservations">
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="manager" />
+        <argument
+            android:name="staffMember"
+            app:argType="string"
+            android:defaultValue="manager@menunow.ie" />
+    </fragment>
     <fragment
         android:id="@+id/managerSelectTable"
         android:name="com.example.fypapplication.ServerTablesFragment"
@@ -70,11 +79,28 @@
         android:id="@+id/managerCreateRez"
         android:name="com.example.fypapplication.AddReservationFragment"
         android:label="Create Reservation"
-        tools:layout="@layout/fragment_add_reservation"
-        />
+        tools:layout="@layout/fragment_add_reservation">
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="manager" />
+        <argument
+            android:name="staffMember"
+            app:argType="string"
+            android:defaultValue="manager@menunow.ie" />
+    </fragment>
     <fragment
         android:id="@+id/viewCurrentReservations"
         android:name="com.example.fypapplication.CurrentReservationsFragment"
         android:label="Today's Reservations"
-        tools:layout="@layout/fragment_current_reservations"/>
+        tools:layout="@layout/fragment_current_reservations">
+        <argument
+            android:name="role"
+            app:argType="string"
+            android:defaultValue="manager" />
+        <argument
+            android:name="staffMember"
+            app:argType="string"
+            android:defaultValue="manager@menunow.ie" />
+    </fragment>
 </navigation>

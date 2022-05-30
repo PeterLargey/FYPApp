@@ -36,7 +36,7 @@ public class CurrentReservationsFragment extends Fragment {
     private TextView currentDate, emptyMessage;
     private reservationAdapter adapter;
     private FirebaseFirestore db;
-    private String date, searchDate;
+    private String date, searchDate, role, staffMember;
     private StringBuilder dateForDB;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -45,6 +45,11 @@ public class CurrentReservationsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View currentResoView = inflater.inflate(R.layout.fragment_current_reservations, container, false);
         db = FirebaseFirestore.getInstance();
+        if(getArguments() != null){
+            role = getArguments().getString("role");
+            staffMember = getArguments().getString("staffMember");
+        }
+
         mRecyclerView = currentResoView.findViewById(R.id.currentReservationsRecycler);
         currentDate = currentResoView.findViewById(R.id.currentDate);
         emptyMessage = currentResoView.findViewById(R.id.emptyMessage);
@@ -69,7 +74,7 @@ public class CurrentReservationsFragment extends Fragment {
         searchDate = String.valueOf(dateForDB);
         Log.d(TAG, searchDate);
         currentDate.setText("Date: " + searchDate);
-        setUpRecycler();
+        setUpRecycler(role, staffMember);
         return currentResoView;
     }
 
@@ -113,7 +118,7 @@ public class CurrentReservationsFragment extends Fragment {
         return "JAN";
     }
 
-    private void setUpRecycler(){
+    private void setUpRecycler(String role, String staffMember){
         Query query = db.collection("Reservations").whereEqualTo("date", searchDate).orderBy("time", Query.Direction.ASCENDING);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -128,7 +133,7 @@ public class CurrentReservationsFragment extends Fragment {
             }
         });
         FirestoreRecyclerOptions<Reservation> options = new FirestoreRecyclerOptions.Builder<Reservation>().setQuery(query, Reservation.class).build();
-        adapter = new reservationAdapter(options);
+        adapter = new reservationAdapter(options, role, staffMember);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
         mRecyclerView.setAdapter(adapter);

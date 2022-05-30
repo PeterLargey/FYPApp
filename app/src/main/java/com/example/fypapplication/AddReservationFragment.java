@@ -5,10 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -38,6 +41,7 @@ public class AddReservationFragment extends Fragment {
     private TextView date, time, name, numberOfGuests;
     private Button createReso;
     private String resoDate, resoTime;
+    private String role, staffMember;
     private int hour, minute;
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
@@ -47,6 +51,11 @@ public class AddReservationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View addResoView = inflater.inflate(R.layout.fragment_add_reservation, container, false);
         db = FirebaseFirestore.getInstance();
+        if(getArguments() != null){
+            role = getArguments().getString("role");
+            staffMember = getArguments().getString("staffMember");
+        }
+
         date = addResoView.findViewById(R.id.resoDate);
         time = addResoView.findViewById(R.id.resoTime);
         name = addResoView.findViewById(R.id.newResoName);
@@ -72,6 +81,7 @@ public class AddReservationFragment extends Fragment {
         });
 
         createReso.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
 
@@ -89,8 +99,17 @@ public class AddReservationFragment extends Fragment {
                 } else {
                     Toast.makeText(view.getContext(), "Reservation Created", Toast.LENGTH_LONG).show();
                     inputDataIntoReservations(resoDate, resoTime, resoName, resoGuests);
-                    Intent i = new Intent(addResoView.getContext(), HostMain.class);
+                    Intent i;
+                    if(role.equalsIgnoreCase("host")){
+                        i = new Intent(addResoView.getContext(), HostMain.class);
+                        i.putExtra("role", role);
+                    } else {
+                        i = new Intent(addResoView.getContext(), ManagerMain.class);
+                        i.putExtra("role", role);
+                        i.putExtra("staffMember", staffMember);
+                    }
                     startActivity(i);
+
                 }
 
             }
@@ -99,6 +118,7 @@ public class AddReservationFragment extends Fragment {
 
         return addResoView;
     }
+
 
     private void initTimePicker(){
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -125,6 +145,7 @@ public class AddReservationFragment extends Fragment {
     private void initDatePicker() {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 

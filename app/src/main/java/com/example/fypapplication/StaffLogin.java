@@ -104,10 +104,12 @@ public class StaffLogin extends AppCompatActivity {
                                                             //host
                                                         } else if(role.equalsIgnoreCase("host")){
                                                             Intent i = new Intent(StaffLogin.this, HostMain.class);
+                                                            i.putExtra("role", role);
                                                             startActivity(i);
                                                             //owner
                                                         } else if(role.equalsIgnoreCase("owner")){
                                                             Intent i = new Intent(StaffLogin.this, OwnerMain.class);
+                                                            i.putExtra("role", role);
                                                             startActivity(i);
                                                             //manager
                                                         } else if(role.equalsIgnoreCase("chef")){
